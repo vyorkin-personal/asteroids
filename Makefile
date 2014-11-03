@@ -38,6 +38,6 @@ $(GFS_LIB_NAME):
 
 clean:
 	@echo 'cleaning...'
-	$(RM) -r $(TARGET)
+	$(RM) -r $(TARGET) $(TARGET).dSYM
 
 .PHONY: clean $(GFS_LIB_NAME)

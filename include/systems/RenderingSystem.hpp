@@ -9,9 +9,14 @@ class RenderableSystem: public gfs::System {
 	    watchComponents<View>();
 	}
 
+	bool onProcessing() {
+	    glMatrixMode(GL_PROJECTION);
+	    glLoadIdentity();
+	    return true;
+	}
+
 	void processEntity(gfs::Entity* entity, const float delta) {
 	    auto view = entity->getComponent<View>();
-
-	    // ...
+	    view->render(entity, delta);
 	}
 };
