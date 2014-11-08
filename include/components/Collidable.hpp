@@ -1,9 +1,9 @@
 #pragma once
 
-#include <Component.hpp>
+#include "Base.hpp"
 
-struct Collidable: public gfs::Component {
-    Collidable(float r): radius{r} {}
+struct Collidable: public Component {
+    Collidable(float radius): radius{radius} {}
 
     float radius;
 };

@@ -1,11 +1,12 @@
 #pragma once
 
-#include <Component.hpp>
+#include "Base.hpp"
 
-struct Particle: public gfs::Component {
-    Particle(float life = 1.0F):
-	lifetime{life} {}
+struct Particle: public Component {
+    Particle(const Color4f& color, float lifetime = 1.0F):
+	color{color}, lifetime{life}, age{0.0f} {}
 
+    float Color4f color;
     float age;
     float lifetime;
 };

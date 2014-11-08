@@ -1,9 +1,8 @@
 #pragma once
 
-#include <Component.hpp>
-#include <Entity.hpp>
+#include "Base.hpp"
 
-class View: public gfs::Component {
+class View: public Component {
     public:
-	virtual void render(gfs::Entity* entity, const float delta) = 0;
+	virtual void render(Entity* entity, const float delta) = 0;
 };

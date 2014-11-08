@@ -1,11 +1,8 @@
 #pragma once
 
-#include <cmath>
-#include <Component.hpp>
+#include "Base.hpp"
 
-#include "math/Vector2f.hpp"
-
-struct Momentum: public gfs::Component {
+struct Momentum: public Component {
     Momentum(const Vector2f& vel, const float angVel, const float& damp):
 	velocity{vel}, angularVelocity{angVel}, damping{damp} {}
 

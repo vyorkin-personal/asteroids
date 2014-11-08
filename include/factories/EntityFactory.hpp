@@ -1,7 +1,11 @@
 #pragma once
 
-#include <EntityManager.hpp>
-#include <Entity.hpp>
+#include "Base.hpp"
 
 class EntityFactory {
+    public:
+	EntityFactory(EntityManager* entityManager);
+
+	Entity* createAsteriod();
+	Entity* createPlayer();
 };
