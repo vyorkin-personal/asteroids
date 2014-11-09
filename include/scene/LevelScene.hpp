@@ -22,6 +22,7 @@ class LevelScene: public Scene {
 
         virtual void onRender() override;
         virtual void onResize(const Size& size) override;
+        virtual void onKey(const int keyCode, const char keyChar) override;
 
         void reset();
 

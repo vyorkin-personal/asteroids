@@ -8,6 +8,8 @@
 namespace glut {
     class Window: public WindowEventListener {
         public:
+            virtual ~Window() = default;
+
             void initialize(const WindowParameters& params);
 
             void setTitle(const char* title);

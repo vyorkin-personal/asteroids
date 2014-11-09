@@ -20,9 +20,7 @@ namespace glut {
 
     void Application::addWindow(Window* window, const WindowParameters& params) {
         windowManager->add(window, params);
-        WindowDispatcher::set(window);
+        WindowDispatcher::registerCallbacks(window);
         window->initialize(params);
-        window->onResize(params.size);
     }
-
 }

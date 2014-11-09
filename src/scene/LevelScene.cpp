@@ -29,6 +29,12 @@ void LevelScene::onPause() {
 
 void LevelScene::onRender() {
     world->process();
+
+    std::cout << "rendering..." << std::endl;
+
+    glBegin(GL_POINTS);
+    glVertex2i(100, 100);
+    glEnd();
 }
 
 void LevelScene::onResize(const Size& size) {
@@ -42,4 +48,12 @@ void LevelScene::reset() {
     entityFactory->createPlayer();
     for (int i = 0; i <= 10; i++)
         entityFactory->createAsteriod();
+}
+
+void LevelScene::onKey(const int keyCode, const char keyChar) {
+    switch (keyChar) {
+        case 27:
+            exit(0);
+            break;
+    }
 }

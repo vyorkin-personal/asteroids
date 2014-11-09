@@ -9,7 +9,7 @@ namespace glut {
     class WindowDispatcher {
         public:
             static void initialize(WindowManager* windowManager);
-            static void set(Window* window);
+            static void registerCallbacks(Window* window);
 
         private:
             static WindowManager* windowManager;
@@ -35,6 +35,6 @@ namespace glut {
             static void idleFunc();
             static void timerFunc(int value);
 
-            static void setTimer();
+            static void resetTimer();
     };
 }

@@ -1,5 +1,8 @@
 #include "scene/SceneManager.hpp"
 
+SceneManager::SceneManager(glut::Window* window):
+    window{window}, current{nullptr} {}
+
 SceneManager::~SceneManager() {
     destroyAll();
 }
@@ -14,7 +17,10 @@ void SceneManager::destroyAll() {
 
 Scene* SceneManager::add(Scene* scene) {
     scenes.insert(scene);
+
     scene->onInitialize();
+    scene->onResize(window->getSize());
+
     return scene;
 }
 
@@ -26,5 +32,6 @@ void SceneManager::setCurrent(Scene* scene) {
 
     current = scene;
     current->state = SceneState::Playing;
+
     current->onPlay();
 }

@@ -5,21 +5,20 @@ namespace glut {
 
     void WindowDispatcher::initialize(WindowManager* windowManager) {
         WindowDispatcher::windowManager = windowManager;
+
+        glutIdleFunc(idleFunc);
+        resetTimer();
     }
 
-    void WindowDispatcher::set(Window* window) {
+    void WindowDispatcher::registerCallbacks(Window* window) {
         glutDisplayFunc(displayFunc);
         glutReshapeFunc(reshapeFunc);
         glutVisibilityFunc(visibilityFunc);
-
         glutMouseFunc(mouseFunc);
         glutKeyboardFunc(keyboardFunc);
         glutSpecialFunc(specialFunc);
         glutMotionFunc(motionFunc);
         glutPassiveMotionFunc(passiveMotionFunc);
-
-        glutIdleFunc(idleFunc);
-        setTimer();
     }
 
     void WindowDispatcher::reshapeFunc(int width, int height) {
@@ -92,10 +91,10 @@ namespace glut {
                 glutPostRedisplay();
             }
         }
-        setTimer();
+        resetTimer();
     }
 
-    void WindowDispatcher::setTimer() {
+    void WindowDispatcher::resetTimer() {
         glutTimerFunc(24, timerFunc, 0);
     }
 
