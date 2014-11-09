@@ -1,8 +1,8 @@
 #include "systems/RenderingSystem.hpp"
 
 bool RenderingSystem::onProcessing() {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
+    /* glMatrixMode(GL_PROJECTION); */
+    /* glLoadIdentity(); */
 
     return true;
 }

@@ -22,6 +22,7 @@ void LevelScene::onInitialize() {
 
 void LevelScene::onPlay() {
     glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+    glPointSize(4.0f);
 }
 
 void LevelScene::onPause() {
@@ -30,10 +31,8 @@ void LevelScene::onPause() {
 void LevelScene::onRender() {
     world->process();
 
-    std::cout << "rendering..." << std::endl;
-
     glBegin(GL_POINTS);
-    glVertex2i(100, 100);
+    glVertex2i(200, 200);
     glEnd();
 }
 
