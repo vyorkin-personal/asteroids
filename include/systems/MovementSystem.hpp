@@ -6,9 +6,9 @@
 
 class MovementSystem: public System {
     public:
-	void initialize() {
+	virtual void initialize() override {
 	    watchComponents<Position, Momentum>();
 	}
 
-	void processEntity(Entity* entity);
+	virtual void processEntity(Entity* entity) override;
 };

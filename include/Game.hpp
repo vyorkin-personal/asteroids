@@ -1,6 +1,10 @@
 #pragma once
 
 #include "Base.hpp"
+#include "glut/GameWindow.hpp"
+#include "glut/Application.hpp"
+#include "scene/SceneManager.hpp"
+#include "scene/LevelScene.hpp"
 
 class Game {
     public:

@@ -1,5 +1,3 @@
 #pragma once
 
-namespace glut {
-    enum SceneState { Playing, Paused };
-}
+enum SceneState { Playing, Paused };

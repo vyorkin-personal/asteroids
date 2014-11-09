@@ -1,14 +1,13 @@
 #include "glut/Window.hpp"
 
 namespace glut {
-    void Window::initialize(const int id, const WindowParameters& params) {
-        this->id = id;
+    void Window::initialize(const WindowParameters& params) {
         this->params = params;
         this->clearFlag = params.getClearFlag();
         this->visible = true;
 
         if (params.fullscreen)
-            setFullscreen();
+            setFullscreen(true);
 
         glutInitDisplayMode(params.getDisplayModeFlag());
         onInitialize();
@@ -26,7 +25,7 @@ namespace glut {
     }
 
     void Window::setSize(const Size& size) {
-        glutReshapeWindow(size.width, size.height);
+        glutReshapeWindow(size.x, size.y);
     }
 
     Point2i Window::getPosition() const {
@@ -71,6 +70,6 @@ namespace glut {
         if (params.doubleBuffer)
             glutSwapBuffers();
         else
-            glFlash();
+            glFlush();
     }
 }

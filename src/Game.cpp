@@ -5,6 +5,11 @@ Game::Game() {
     window = new glut::GameWindow();
 }
 
+Game::~Game() {
+    delete window;
+    delete application;
+}
+
 void Game::initialize(int argc, char** argv) {
     application->initialize(argc, argv);
     application->addWindow(window);

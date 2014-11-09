@@ -5,9 +5,9 @@
 
 class ParticleSystem: public System {
     public:
-	void initialize() {
+	virtual void initialize() override {
 	    watchComponents<Particle>();
 	}
     
-	void processEntity(Entity* entity)
+	virtual void processEntity(Entity* entity) override;
 };

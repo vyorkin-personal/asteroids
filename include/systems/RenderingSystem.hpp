@@ -3,12 +3,12 @@
 #include "Base.hpp"
 #include "components/View.hpp"
 
-class RenderableSystem: public System {
+class RenderingSystem: public System {
     public:
-	void initialize() {
+	virtual void initialize() override {
 	    watchComponents<View>();
 	}
 
-	bool onProcessing();
-	void processEntity(Entity* entity);
+	virtual bool onProcessing() override;
+	virtual void processEntity(Entity* entity) override;
 };

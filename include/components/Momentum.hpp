@@ -3,14 +3,14 @@
 #include "Base.hpp"
 
 struct Momentum: public Component {
-    Momentum(const Vector2f& vel, const float angVel, const float& damp):
-	velocity{vel}, angularVelocity{angVel}, damping{damp} {}
+    Momentum(const Vector2f& velocity, const float angularVelocity, const float& damping):
+	velocity{velocity}, angularVelocity{angularVelocity}, damping{damping} {}
 
     void damp(const float rotation, const float delta) {
 	if (damping <= 0.0F) return;
 
-	auto xd = abs(cos(rotation) * damping * delta);
-	auto yd = abs(sin(rotation) * damping * delta);
+	const auto xd = abs(cos(rotation) * damping * delta);
+	const auto yd = abs(sin(rotation) * damping * delta);
 
 	velocity.x += getDampingValue(velocity.x, xd);
 	velocity.y += getDampingValue(velocity.y, yd);

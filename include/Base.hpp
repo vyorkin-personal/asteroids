@@ -18,32 +18,41 @@
 #include <cmath>
 #include <cstdlib>
 
-#include <Prerequisites.hpp>
-#include <ecs/Entity.hpp>
-#include <ecs/System.hpp>
-#include <ecs/World.hpp>
-
-namespace glut {
-    class Application;
-    class Window;
-    class WindowManager;
-    class WindowDispatcher;
-    using WindowMap = std::unordered_map<int, Window*>;
-    using SceneSet = std::set<Scene*>;
-
-    class Collidable;
-    class Momentum;
-    class Particle;
-    class Position;
-    class View;
-
-    class CollisionSystem;
-    class InputSystem;
-    class MovementSystem;
-    class ParticleSystem;
-    class RenderingSystem;
-}
+#include <Gfs.hpp>
 
 using namespace gfs;
 using namespace gfs::ecs;
 using namespace gfs::math;
+
+class Scene;
+class SceneManager;
+using SceneSet = std::set<Scene*>;
+
+class MenuScene;
+class LevelScene;
+
+class EntityFactory;
+
+namespace glut {
+    struct WindowParameters;
+    class WindowEventListener;
+    class Window;
+    class WindowManager;
+    class WindowDispatcher;
+    class GameWindow;
+    class Application;
+
+    using WindowMap = std::unordered_map<int, Window*>;
+}
+
+struct Collidable;
+struct Momentum;
+struct Particle;
+struct Position;
+class View;
+
+class CollisionSystem;
+class InputSystem;
+class MovementSystem;
+class ParticleSystem;
+class RenderingSystem;

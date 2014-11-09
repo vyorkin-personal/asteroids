@@ -8,6 +8,8 @@
 namespace glut {
     class Window: public WindowEventListener {
         public:
+            void initialize(const WindowParameters& params);
+
             void setTitle(const char* title);
 
             Size getSize() const;
@@ -40,7 +42,6 @@ namespace glut {
             WindowParameters params;
             unsigned int clearFlag;
 
-            void initialize(const int id, const WindowParameters& params);
             void render();
 
             friend WindowManager;

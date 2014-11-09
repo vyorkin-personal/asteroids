@@ -7,6 +7,7 @@
 class Scene: public glut::WindowEventListener {
     public:
         Scene();
+        virtual ~Scene() = default;
 
         SceneState getState() const {
             return state;
@@ -17,4 +18,6 @@ class Scene: public glut::WindowEventListener {
 
     private:
         SceneState state;
+
+        friend SceneManager;
 };

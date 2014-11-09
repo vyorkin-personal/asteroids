@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Base.hpp"
+#include "glut/Window.hpp"
 #include "glut/WindowParameters.hpp"
 
 namespace glut {
@@ -8,7 +9,7 @@ namespace glut {
         public:
             ~WindowManager();
 
-            Window* add(Window* window);
+            Window* add(Window* window, const WindowParameters& params);
             void destroy(Window* window);
             void destroy(const int windowId);
             void destroyAll();

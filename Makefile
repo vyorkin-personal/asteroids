@@ -19,8 +19,6 @@ INC := -I include -I $(GFS_LIB_DIR)/include
 
 CXXFLAGS := -g -std=c++11 -Wall -pedantic
 MAKEFLAGS += --quiet
-
-# keep in mind that shit works only for clang compiler
 LDFLAGS = -framework Carbon -framework OpenGL -framework GLUT -L $(GFS_LIB_DIR)
 
 game: $(TARGET)

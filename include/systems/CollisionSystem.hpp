@@ -6,9 +6,9 @@
 
 class CollisionSystem: public System {
     public:
-	void initialize() {
+	virtual void initialize() override {
 	    watchComponents<Position, Collidable>();
 	}
 
-	void processEntity(Entity* entity);
+	virtual void processEntity(Entity* entity) override;
 };

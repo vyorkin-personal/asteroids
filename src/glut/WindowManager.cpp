@@ -9,8 +9,8 @@ namespace glut {
         glutInitWindowPosition(params.position.x, params.position.y);
         glutInitWindowSize(params.size.x, params.size.y);
         
-        id = glutCreateWindow(params.title.c_str());
-        windows.insert(std::make_pair(id, window));
+        window->id = glutCreateWindow(params.title.c_str());
+        windows.insert(std::make_pair(window->id, window));
 
         return window;
     }

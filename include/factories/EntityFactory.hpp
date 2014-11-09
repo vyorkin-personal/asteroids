@@ -14,4 +14,7 @@ class EntityFactory {
 
 	Entity* createAsteriod();
 	Entity* createPlayer();
+
+    private:
+	EntityManager* entityManager;
 };

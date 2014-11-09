@@ -3,10 +3,10 @@
 #include "Base.hpp"
 
 struct Particle: public Component {
-    Particle(const Color4f& color, float lifetime = 1.0F):
-	color{color}, lifetime{life}, age{0.0f} {}
+    Particle(const Color4f& color, const float lifetime = 1.0F):
+	color{color}, age{0.0f}, lifetime{lifetime} {}
 
-    float Color4f color;
+    Color4f color;
     float age;
     float lifetime;
 };

@@ -1,5 +1,6 @@
 #include "Base.hpp"
 #include "glut/Window.hpp"
+#include "glut/WindowParameters.hpp"
 #include "glut/WindowManager.hpp"
 #include "glut/WindowDispatcher.hpp"
 
@@ -20,11 +21,5 @@ namespace glut {
 
         private:
             WindowManager* windowManager;
-            WindowDispatcher* windowDispatcher;
-            
-            static void idleFunc();
-            static void timerFunc(int value);
-
-            static void setTimer();
     };
 }

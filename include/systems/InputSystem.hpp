@@ -4,9 +4,9 @@
 
 class InputSystem: public System {
     public:
-	void initialize() {
+	virtual void initialize() override {
 	    watchTags({"player"});
 	}
 
-	void processEntity(Entity* entity);
+	virtual void processEntity(Entity* entity) override;
 };

@@ -32,10 +32,10 @@ void LevelScene::onRender() {
 }
 
 void LevelScene::onResize(const Size& size) {
-    glViewport(0, 0, size.width, size.height);
+    glViewport(0, 0, size.x, size.y);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0, size.width, 0.0, size.height);
+    gluOrtho2D(0.0, size.x, 0.0, size.y);
 }
 
 void LevelScene::reset() {
