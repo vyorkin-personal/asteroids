@@ -8,10 +8,13 @@ namespace glut {
         protected:
             virtual void onInitialize() {}
             virtual void onIdle() {}
+            virtual void onTimer(int value) {}
             virtual void onResize(const int width, const int height) {}
             virtual void onRender() {}
             virtual void onDestroy() {}
             virtual void onClose() {}
+            virtual void onShow() {}
+            virtual void onHide() {}
 
             virtual void onMouseEnter() {}
             virtual void onMouseLeave() {}
@@ -23,6 +26,6 @@ namespace glut {
             virtual void onKeyDown(const int keyCode, const char keyChar) {}
             virtual void onKeyUp(const int keyCode, const char keyChar) {}
 
-            virtual void onJoystick(const unsigned int button, int x, int y, int z);
+            virtual void onJoystick(const unsigned int button, int x, int y, int z) {}
     };
 }

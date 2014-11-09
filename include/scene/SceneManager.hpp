@@ -5,7 +5,17 @@
 
 class SceneManager {
     public:
-        void renderScene();
+        ~SceneManager();
 
-        Scene* getCurrent() const;
+        Scene* add(Scene* scene);
+        void destroyAll();
+
+        void setCurrent(Scene* scene);
+        Scene* getCurrent() const {
+            return current;
+        }
+
+    private:
+        Scene* current;
+        SceneSet scenes;
 };

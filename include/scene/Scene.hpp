@@ -12,6 +12,9 @@ class Scene: public glut::WindowEventListener {
             return state;
         }
 
+        virtual void onPlay() {}
+        virtual void onPause() {}
+
     private:
         SceneState state;
 };

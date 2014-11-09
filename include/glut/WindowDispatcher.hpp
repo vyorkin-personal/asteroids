@@ -19,7 +19,6 @@ namespace glut {
                 return windowManager->getCurrent();
             }
 
-            static void idleFunc();
             static void reshapeFunc(int width, int height);
             static void displayFunc();
             static void visibilityFunc(int state);

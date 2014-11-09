@@ -5,6 +5,10 @@ namespace glut {
         this->id = id;
         this->params = params;
         this->clearFlag = params.getClearFlag();
+        this->visible = true;
+
+        if (params.fullscreen)
+            setFullscreen();
 
         glutInitDisplayMode(params.getDisplayModeFlag());
         onInitialize();

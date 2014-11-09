@@ -5,7 +5,6 @@ namespace glut {
 	windowManager{windowManager} {}
 
     void WindowDispatcher::register(Window* window) {
-        glutIdleFunc(idleFunc);
         glutDisplayFunc(displayFunc);
         glutReshapeFunc(reshapeFunc);
         glutVisibilityFunc(visibilityFunc);
@@ -23,15 +22,6 @@ namespace glut {
         glutPassiveMotionFunc(passiveMotionFunc);
     }
 
-    void WindowDispatcher::idleFunc() {
-	// TODO: Seems to be a wrong way to do this
-	//
-	for (const auto& it: windowManager->windows) {
-	    if (it.second->isVisible())
-		glutPostRedisplay();
-	}
-    }
-
     void WindowDispatcher::reshapeFunc(int width, int height) {
         getCurrentWindow()->onResize(width, height);
     }
@@ -41,7 +31,15 @@ namespace glut {
     }
 
     void WindowDispatcher::visibilityFunc(int state) {
-        getCurrentWindow()->visible = (state == GLUT_VISIBLE);
+        auto window = getCurrentWindow();
+
+        if (state == GLUT_VISIBLE) {
+            window->visible = true;
+            window->onShow();
+        } else if (state == GLUT_NOT_VISIBLE) {
+            window->visible = false;
+            window->onHide();
+        }
     }
 
     void WindowDispatcher::closeFunc() {
@@ -105,6 +103,5 @@ namespace glut {
             case GLUT_MIDDLE_BUTTON: return MouseButton::Middle;
             default: return MouseButton::None;
         };
-
     }
 }

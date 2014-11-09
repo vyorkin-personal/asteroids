@@ -29,6 +29,7 @@ namespace glut {
     class WindowManager;
     class WindowDispatcher;
     using WindowMap = std::unordered_map<int, Window*>;
+    using SceneSet = std::set<Scene*>;
 
     class Collidable;
     class Momentum;

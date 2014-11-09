@@ -1,4 +1,4 @@
 #include "scene/Scene.hpp"
 
-Scene::Scene() {
+Scene::Scene(): state{SceneState::Paused} {
 }
