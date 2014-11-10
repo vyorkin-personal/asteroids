@@ -6,9 +6,14 @@
 
 class MovementSystem: public System {
     public:
+	MovementSystem(const Size& size);
+
 	virtual void initialize() override {
 	    watchComponents<Position, Momentum>();
 	}
 
 	virtual void processEntity(Entity* entity) override;
+
+    private:
+	Size size;
 };

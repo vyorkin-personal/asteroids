@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Base.hpp"
+#include "glut/Window.hpp"
 #include "scene/Scene.hpp"
 
 #include "systems/CollisionSystem.hpp"
@@ -13,7 +14,7 @@
 
 class LevelScene: public Scene {
     public:
-        LevelScene();
+        LevelScene(const Size& size);
         ~LevelScene();
 
         virtual void onInitialize() override;
@@ -29,4 +30,6 @@ class LevelScene: public Scene {
     private:
         EntityFactory* entityFactory;
         World* world;
+
+        Size size;
 };

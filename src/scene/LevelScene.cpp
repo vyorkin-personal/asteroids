@@ -1,6 +1,6 @@
 #include "scene/LevelScene.hpp"
 
-LevelScene::LevelScene() {
+LevelScene::LevelScene(const Size& size): size{size} {
     world = new World();
     entityFactory = new EntityFactory(world->getEntityManager());
 }
@@ -13,7 +13,7 @@ LevelScene::~LevelScene() {
 void LevelScene::onInitialize() {
     auto systemManager = world->getSystemManager();
 
-    systemManager->add(new MovementSystem());
+    systemManager->add(new MovementSystem(size));
     systemManager->add(new RenderingSystem());
     systemManager->add(new InputSystem());
 
@@ -30,10 +30,6 @@ void LevelScene::onPause() {
 
 void LevelScene::onRender() {
     world->process();
-
-    glBegin(GL_POINTS);
-    glVertex2i(200, 200);
-    glEnd();
 }
 
 void LevelScene::onResize(const Size& size) {
