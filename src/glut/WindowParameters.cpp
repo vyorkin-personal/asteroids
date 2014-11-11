@@ -38,6 +38,6 @@ namespace glut {
     }
 
     WindowParameters WindowParameters::Default = WindowParameters(
-	"OpenGL window", Point2i(10, 10), Size(800, 600)
+	"OpenGL window", Point2i(10, 10), Size(640, 480)
     );
 }

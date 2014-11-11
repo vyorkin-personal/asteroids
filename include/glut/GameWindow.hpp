@@ -15,7 +15,7 @@ namespace glut {
             }
 
             virtual void onResize(const Size& size) override;
-            virtual void onRender() override;
+            virtual void onRender(const float deltaTime) override;
             virtual void onDestroy() override;
             virtual void onShow() override;
             virtual void onHide() override;

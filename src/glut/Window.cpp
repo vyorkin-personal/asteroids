@@ -3,6 +3,8 @@
 namespace glut {
     void Window::initialize(const WindowParameters& params) {
         this->params = params;
+        this->size = params.size;
+        this->position = params.position;
         this->clearFlag = params.getClearFlag();
         this->visible = true;
 
@@ -11,6 +13,8 @@ namespace glut {
 
         glutInitDisplayMode(params.getDisplayModeFlag());
         onInitialize();
+
+        elapsedTime = glutGet(GLUT_ELAPSED_TIME);
     }
 
     void Window::setTitle(const char* title) {
@@ -26,6 +30,7 @@ namespace glut {
 
     void Window::setSize(const Size& size) {
         glutReshapeWindow(size.x, size.y);
+        this->size = size;
     }
 
     Point2i Window::getPosition() const {
@@ -37,14 +42,17 @@ namespace glut {
 
     void Window::setPosition(const Point2i& position) {
         glutPositionWindow(position.x, position.y);
+        this->position = position;
     }
 
     void Window::setFullscreen(const bool enable) {
         if (enable) {
+            position = getPosition();
+            size = getSize();
             glutFullScreen();
         } else {
-            setSize(getSize());
-            setPosition(getPosition());
+            setSize(size);
+            setPosition(position);
         }
 
         fullscreen = enable;
@@ -65,7 +73,9 @@ namespace glut {
     void Window::render() {
         glClear(clearFlag);
 
-        onRender();
+        const auto time = glutGet(GLUT_ELAPSED_TIME);
+        onRender(time - elapsedTime);
+        elapsedTime = time;
 
         if (params.doubleBuffer)
             glutSwapBuffers();

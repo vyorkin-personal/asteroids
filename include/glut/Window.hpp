@@ -40,8 +40,12 @@ namespace glut {
             int id;
             bool fullscreen;
             bool visible;
+            float elapsedTime;
 
             WindowParameters params;
+            Size size;
+            Point2i position;
+
             unsigned int clearFlag;
 
             void render();

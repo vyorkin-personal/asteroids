@@ -3,12 +3,14 @@
 #include "Base.hpp"
 #include "glut/Window.hpp"
 #include "scene/Scene.hpp"
-
+#include "events/KeyEvent.hpp"
 #include "systems/CollisionSystem.hpp"
 #include "systems/MovementSystem.hpp"
 #include "systems/ParticleSystem.hpp"
 #include "systems/RenderingSystem.hpp"
 #include "systems/InputSystem.hpp"
+#include "systems/CannonSystem.hpp"
+#include "systems/ExplosionSystem.hpp"
 
 #include "factories/EntityFactory.hpp"
 
@@ -21,7 +23,7 @@ class LevelScene: public Scene {
         virtual void onPlay() override;
         virtual void onPause() override;
 
-        virtual void onRender() override;
+        virtual void onRender(const float deltaTime) override;
         virtual void onResize(const Size& size) override;
         virtual void onKey(const int keyCode, const char keyChar) override;
 

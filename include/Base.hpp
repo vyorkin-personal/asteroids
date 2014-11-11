@@ -22,6 +22,7 @@
 #include <Gfs.hpp>
 
 using namespace gfs;
+using namespace gfs::event;
 using namespace gfs::ecs;
 using namespace gfs::math;
 
@@ -46,14 +47,24 @@ namespace glut {
     using WindowMap = std::unordered_map<int, Window*>;
 }
 
+struct KeyEvent;
+struct MouseEvent;
+struct ExplosionEvent;
+
+class Renderer;
+class PlayerRenderer;
+class AsteroidRenderer;
+
 struct Collidable;
 struct Momentum;
 struct Particle;
 struct Position;
-class View;
+struct Cannon;
+struct View;
 
 class CollisionSystem;
 class InputSystem;
 class MovementSystem;
 class ParticleSystem;
 class RenderingSystem;
+class CannonSystem;

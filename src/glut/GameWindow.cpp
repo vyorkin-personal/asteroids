@@ -13,8 +13,8 @@ namespace glut {
         getCurrentScene()->onResize(size);
     }
 
-    void GameWindow::onRender() {
-        getCurrentScene()->onRender();
+    void GameWindow::onRender(const float deltaTime) {
+        getCurrentScene()->onRender(deltaTime);
     }
 
     void GameWindow::onDestroy() {
@@ -50,6 +50,9 @@ namespace glut {
     }
 
     void GameWindow::onKey(const int keyCode, const char keyChar) {
+        if (keyChar == 'f')
+            setFullscreen(!isFullscreen());
+
         getCurrentScene()->onKey(keyCode, keyChar);
     }
 }

@@ -2,9 +2,13 @@
 
 #include "Base.hpp"
 
+enum OffLimitBehavior { DESTROY, LOOP };
+
 struct Position: public Component {
-    Position(const Vector2f& vector, const float rotation):
-	vector{vector}, rotation{rotation} {}
+    Position(const Vector2f& vector, const float rotation,
+	const OffLimitBehavior offLimitBehavior = OffLimitBehavior::LOOP):
+	vector{vector}, rotation{rotation},
+	offLimitBehavior{offLimitBehavior} {}
 
     void move(const Vector2f& velocity) {
 	vector += velocity;
@@ -16,4 +20,5 @@ struct Position: public Component {
 
     Vector2f vector;
     float rotation;
+    OffLimitBehavior offLimitBehavior;
 };

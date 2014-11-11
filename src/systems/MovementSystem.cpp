@@ -6,6 +6,7 @@ void MovementSystem::processEntity(Entity* entity) {
     auto position = entity->getComponent<Position>();
     auto momentum = entity->getComponent<Momentum>();
 
-    // ... handle movement somehow ...
+    position->move(momentum->velocity);
+    position->rotate(momentum->angularVelocity);
 }
 

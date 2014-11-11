@@ -7,5 +7,5 @@ class MenuScene: public Scene {
     public:
         virtual void onInitialize() override;
         virtual void onIdle() override;
-        virtual void onRender() override;
+        virtual void onRender(const float deltaTime) override;
 };
