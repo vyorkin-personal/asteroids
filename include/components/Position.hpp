@@ -16,6 +16,11 @@ struct Position: public Component {
     
     void rotate(const float speed) {
 	rotation += speed;
+
+	if (rotation < 0.0f)
+	    rotation += 360.0f;
+	else if (rotation > 360.0f)
+	    rotation -= 360.0f;
     }
 
     Vector2f vector;

@@ -58,6 +58,10 @@ namespace glut {
         fullscreen = enable;
     }
 
+    void Window::toggleFullscreen() {
+        setFullscreen(!isFullscreen());
+    }
+
     void Window::show() {
         glutShowWindow();
     }

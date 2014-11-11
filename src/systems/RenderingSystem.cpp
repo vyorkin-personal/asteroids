@@ -1,7 +1,7 @@
 #include "systems/RenderingSystem.hpp"
 
 void RenderingSystem::initialize() {
-    watchComponents<View, Position>();
+    watchComponents<View, Position, Geometry>();
 }
 
 bool RenderingSystem::onProcessing() {
@@ -19,15 +19,14 @@ void RenderingSystem::onProcessed() {
 void RenderingSystem::processEntity(Entity* entity) {
     auto view = entity->getComponent<View>();
     auto position = entity->getComponent<Position>();
+    const auto geometry = entity->getComponent<Geometry>();
+    const float radius = geometry->radius;
+    const auto vec = position->vector;
 
-    auto vec = position->vector;
-
-    glScalef(0.2f, 0.2f, 0.0f);
-    glTranslatef(vec.x - 0.5f, vec.y - 0.5f, 0.0f);
+    glScalef(0.1f, 0.1f, 0.0f);
+    glTranslatef(vec.x - radius, vec.y - radius, 0.0f);
     glRotatef(position->rotation, 0.0f, 0.0f, 1.0f);
-    glTranslatef(-0.5f, -0.5f, 0.0f);
-
-    position->rotation += 1.5f;
+    glTranslatef(-radius, -radius, 0.0f);
     
     view->renderer->render(entity, getDelta());
 }

@@ -21,6 +21,7 @@ namespace glut {
             virtual void onMouseButtonUp(const MouseButton button, const Point2i& position) {}
             virtual void onMouseMove(const Point2i& position) {}
 
-            virtual void onKey(const int keyCode, const char keyChar) {}
+            virtual void onKeyDown(const int keyCode, const char keyChar) {}
+            virtual void onKeyUp(const int keyCode, const char keyChar) {}
     };
 }

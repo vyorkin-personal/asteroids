@@ -3,7 +3,9 @@
 #include "Base.hpp"
 #include "glut/Window.hpp"
 #include "scene/Scene.hpp"
+
 #include "events/KeyEvent.hpp"
+
 #include "systems/CollisionSystem.hpp"
 #include "systems/MovementSystem.hpp"
 #include "systems/ParticleSystem.hpp"
@@ -25,7 +27,8 @@ class LevelScene: public Scene {
 
         virtual void onRender(const float deltaTime) override;
         virtual void onResize(const Size& size) override;
-        virtual void onKey(const int keyCode, const char keyChar) override;
+        virtual void onKeyDown(const int keyCode, const char keyChar) override;
+        virtual void onKeyUp(const int keyCode, const char keyChar) override;
 
         void reset();
 
@@ -34,4 +37,5 @@ class LevelScene: public Scene {
         World* world;
 
         Size size;
+        float aspectRatio;
 };

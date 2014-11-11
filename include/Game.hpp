@@ -17,4 +17,5 @@ class Game {
     private:
         glut::Application* application;
         glut::GameWindow* window;
+        glut::WindowParameters windowParameters;
 };

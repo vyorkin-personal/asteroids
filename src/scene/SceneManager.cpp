@@ -19,7 +19,6 @@ Scene* SceneManager::add(Scene* scene) {
     scenes.insert(scene);
 
     scene->onInitialize();
-    scene->onResize(window->getSize());
 
     return scene;
 }

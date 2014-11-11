@@ -8,6 +8,7 @@ namespace glut {
         WindowParameters(const char* title, const Point2i& position,
             const Size& size, const bool fullscreen = true);
 
+        String title;
         Point2i position;
         Size size;
 
@@ -19,8 +20,6 @@ namespace glut {
         bool stencilBuffer;
         bool accumBuffer;
         bool multisampling;
-
-        String title;
 
         unsigned int getDisplayModeFlag() const;
         unsigned int getClearFlag() const;

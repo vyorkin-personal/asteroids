@@ -20,6 +20,7 @@ namespace glut {
             void setPosition(const Point2i& position);
 
             void setFullscreen(const bool enable);
+            void toggleFullscreen();
             void show();
             void hide();
             void destroy();

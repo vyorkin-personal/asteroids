@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Base.hpp"
-#include "components/Collidable.hpp"
+#include "components/Geometry.hpp"
 #include "components/Position.hpp"
 #include "events/ExplosionEvent.hpp"
 

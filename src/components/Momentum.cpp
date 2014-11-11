@@ -1,8 +1,17 @@
 #include "components/Momentum.hpp"
 
-void Momentum::update(const float rotation, const float delta) {
-	if (damping <= 0.0F) return;
+Momentum::Momentum(const Vector2f& velocity, const float angularVelocity,
+	const float linearDumping, const float angularDumping):
+	velocity{velocity}, angularVelocity{angularVelocity},
+	linearDumping{linearDumping}, angularDumping{angularDumping} {}
 
-	velocity.x += abs(cos(rotation) * damping * delta);
-	velocity.y += abs(sin(rotation) * damping * delta);
+void Momentum::updateLinear(const float rotation, const float delta) {
+	const float angle = rotation * M_PI / 180.0f + M_PI / 2.0f;
+
+	velocity.x += cos(angle) * delta;
+	velocity.y += sin(angle) * delta;
+}
+
+void Momentum::updateAngular(const float delta) {
+	angularVelocity += delta;
 }

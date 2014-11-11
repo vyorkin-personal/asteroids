@@ -3,6 +3,8 @@
 Game::Game() {
     application = new glut::Application();
     window = new glut::GameWindow();
+    windowParameters = glut::WindowParameters("Asteriods",
+        Point2i(10, 10), Size(640, 480), false);
 }
 
 Game::~Game() {
@@ -12,7 +14,7 @@ Game::~Game() {
 
 void Game::initialize(int argc, char** argv) {
     application->initialize(argc, argv);
-    application->addWindow(window);
+    application->addWindow(window, windowParameters);
 }
 
 void Game::start() {

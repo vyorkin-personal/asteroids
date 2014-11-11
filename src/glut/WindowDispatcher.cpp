@@ -16,7 +16,9 @@ namespace glut {
         glutVisibilityFunc(visibilityFunc);
         glutMouseFunc(mouseFunc);
         glutKeyboardFunc(keyboardFunc);
+        glutKeyboardUpFunc(keyboardUpFunc);
         glutSpecialFunc(specialFunc);
+        glutSpecialUpFunc(specialUpFunc);
         glutMotionFunc(motionFunc);
         glutPassiveMotionFunc(passiveMotionFunc);
     }
@@ -62,11 +64,19 @@ namespace glut {
     }
 
     void WindowDispatcher::keyboardFunc(unsigned char key, int x, int y) {
-        getCurrentWindow()->onKey(0, key);
+        getCurrentWindow()->onKeyDown(0, key);
+    }
+
+    void WindowDispatcher::keyboardUpFunc(unsigned char key, int x, int y) {
+        getCurrentWindow()->onKeyUp(0, key);
     }
 
     void WindowDispatcher::specialFunc(int key, int x, int y) {
-        getCurrentWindow()->onKey(key, 0);
+        getCurrentWindow()->onKeyDown(key, 0);
+    }
+
+    void WindowDispatcher::specialUpFunc(int key, int x, int y) {
+        getCurrentWindow()->onKeyUp(key, 0);
     }
 
     void WindowDispatcher::motionFunc(int x, int y) {

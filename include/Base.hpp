@@ -54,8 +54,9 @@ struct ExplosionEvent;
 class Renderer;
 class PlayerRenderer;
 class AsteroidRenderer;
+class ProjectileRenderer;
 
-struct Collidable;
+struct Geometry;
 struct Momentum;
 struct Particle;
 struct Position;

@@ -3,13 +3,16 @@
 #include "Base.hpp"
 
 struct Cannon: public Component {
-    Cannon(const float cooldownTime):
-	cooldownTime{cooldownTime} {}
+    Cannon(const float delayTime);
 
-    void cooldown(const float delta) {
-	cooldownTime += delta;
+    void update(const float delta);
+    bool isFiring() const {
+	return ready && trigger;
     }
 
-    float cooldownTime;
-    bool on;
+    float delayTime;
+    float elapsedTime;
+
+    bool ready;
+    bool trigger;
 };

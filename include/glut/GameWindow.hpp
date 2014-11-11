@@ -26,7 +26,8 @@ namespace glut {
             virtual void onMouseButtonUp(const MouseButton button, const Point2i& position) override;
             virtual void onMouseMove(const Point2i& position) override;
 
-            virtual void onKey(const int keyCode, const char keyChar) override;
+            virtual void onKeyDown(const int keyCode, const char keyChar) override;
+            virtual void onKeyUp(const int keyCode, const char keyChar) override;
 
         private:
             SceneManager* sceneManager;

@@ -49,10 +49,14 @@ namespace glut {
         getCurrentScene()->onMouseMove(position);
     }
 
-    void GameWindow::onKey(const int keyCode, const char keyChar) {
+    void GameWindow::onKeyDown(const int keyCode, const char keyChar) {
         if (keyChar == 'f')
-            setFullscreen(!isFullscreen());
+            toggleFullscreen();
 
-        getCurrentScene()->onKey(keyCode, keyChar);
+        getCurrentScene()->onKeyDown(keyCode, keyChar);
+    }
+
+    void GameWindow::onKeyUp(const int keyCode, const char keyChar) {
+        getCurrentScene()->onKeyUp(keyCode, keyChar);
     }
 }

@@ -27,7 +27,9 @@ namespace glut {
             static void mouseFunc(int button, int state, int x, int y);
 
             static void keyboardFunc(unsigned char key, int x, int y);
+            static void keyboardUpFunc(unsigned char key, int x, int y);
             static void specialFunc(int key, int x, int y);
+            static void specialUpFunc(int key, int x, int y);
 
             static void motionFunc(int x, int y);
             static void passiveMotionFunc(int x, int y);

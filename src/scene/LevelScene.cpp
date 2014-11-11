@@ -13,12 +13,12 @@ LevelScene::~LevelScene() {
 void LevelScene::onInitialize() {
     auto systemManager = world->getSystemManager();
 
-    systemManager->add(new MovementSystem(size));
+    systemManager->add(new MovementSystem());
     systemManager->add(new RenderingSystem());
     systemManager->add(new InputSystem());
-    systemManager->add(new CannonSystem());
     systemManager->add(new CollisionSystem());
     systemManager->add(new ExplosionSystem());
+    systemManager->add(new CannonSystem(entityFactory));
 
     reset();
 }
@@ -42,10 +42,14 @@ void LevelScene::onRender(const float deltaTime) {
 }
 
 void LevelScene::onResize(const Size& size) {
+    aspectRatio = (float)size.x / (float)size.y;
+
     glViewport(0, 0, size.x, size.y);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(0.0, size.x, 0.0, size.y);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
 void LevelScene::reset() {
@@ -54,12 +58,16 @@ void LevelScene::reset() {
     /*     entityFactory->createAsteriod(); */
 }
 
-void LevelScene::onKey(const int keyCode, const char keyChar) {
-    world->getEventBus()->emit(KeyEvent(keyCode, keyChar));
+void LevelScene::onKeyDown(const int keyCode, const char keyChar) {
+    world->getEventBus()->emit(KeyDownEvent(keyCode, keyChar));
 
     switch (keyChar) {
         case 27:
             exit(0);
             break;
     }
+}
+
+void LevelScene::onKeyUp(const int keyCode, const char keyChar) {
+    world->getEventBus()->emit(KeyUpEvent(keyCode, keyChar));
 }
