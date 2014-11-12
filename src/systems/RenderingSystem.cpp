@@ -5,7 +5,7 @@ void RenderingSystem::initialize() {
 }
 
 bool RenderingSystem::onProcessing() {
-    glMatrixMode(GL_PROJECTION);
+    glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     glPushMatrix();
 
@@ -23,7 +23,6 @@ void RenderingSystem::processEntity(Entity* entity) {
     const float radius = geometry->radius;
     const auto vec = position->vector;
 
-    glScalef(0.1f, 0.1f, 0.0f);
     glTranslatef(vec.x - radius, vec.y - radius, 0.0f);
     glRotatef(position->rotation, 0.0f, 0.0f, 1.0f);
     glTranslatef(-radius, -radius, 0.0f);

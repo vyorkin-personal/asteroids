@@ -36,6 +36,5 @@ class LevelScene: public Scene {
         EntityFactory* entityFactory;
         World* world;
 
-        Size size;
-        float aspectRatio;
+        Size windowSize;
 };

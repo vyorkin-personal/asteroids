@@ -13,7 +13,7 @@ void MovementSystem::processEntity(Entity* entity) {
     const float dt = getDelta();
 
     position->move(momentum->velocity * dt / body->mass);
-    position->rotate(momentum->angularVelocity * dt * 20.0 / body->mass);
+    position->rotate(momentum->angularVelocity * dt * 25.0 / body->mass);
     momentum->dump();
 
     handleScreenBounds(entity, position, geometry->radius); 

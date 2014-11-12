@@ -1,6 +1,6 @@
 #include "scene/LevelScene.hpp"
 
-LevelScene::LevelScene(const Size& size): size{size} {
+LevelScene::LevelScene(const Size& size): windowSize{size} {
     world = new World();
     entityFactory = new EntityFactory(world, size);
 }
@@ -42,14 +42,17 @@ void LevelScene::onRender(const float deltaTime) {
 }
 
 void LevelScene::onResize(const Size& size) {
-    aspectRatio = (float)size.x / (float)size.y;
+    windowSize = size;
+    const float aspectRatio = (float)size.x / (float)size.y;
 
     glViewport(0, 0, size.x, size.y);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0.0, size.x, 0.0, size.y);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+
+    if (aspectRatio >= 1.0f)
+        glOrtho(-10.0 * aspectRatio, 10.0 * aspectRatio, -10.0, 10.0, -1.0, 1.0);
+    else
+        glOrtho(-10.0, 10.0, -10.0 / aspectRatio, 10.0 / aspectRatio, -1.0, 1.0);
 }
 
 void LevelScene::reset() {
