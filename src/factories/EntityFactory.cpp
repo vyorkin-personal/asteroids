@@ -101,7 +101,7 @@ Polygon EntityFactory::generateConvexPolygon(const float radius) {
         float y = radius * sin(angle);
 
         polygon.vertices.push_back(Vector2f(x, y));
-        angle += getRandomAngle() / 3.0f;
+        angle += getRandomAngle() / 5.0f;
     }
     return polygon;
 }
