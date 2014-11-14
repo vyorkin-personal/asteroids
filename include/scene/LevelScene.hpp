@@ -30,6 +30,7 @@ class LevelScene: public Scene {
         virtual void onKeyDown(const int keyCode, const char keyChar) override;
         virtual void onKeyUp(const int keyCode, const char keyChar) override;
 
+        void prepare();
         void reset();
 
     private:

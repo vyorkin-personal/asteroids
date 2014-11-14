@@ -11,6 +11,5 @@ class RenderingSystem: public System {
 	virtual void initialize() override;
 
 	virtual bool onProcessing() override;
-	virtual void onProcessed() override;
 	virtual void processEntity(Entity* entity) override;
 };

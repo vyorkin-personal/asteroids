@@ -7,6 +7,10 @@
 
 class CollisionSystem: public System {
     public:
-	virtual void initialize() override;
-	virtual void processEntity(Entity* entity) override;
+	CollisionSystem(GroupManager* groupManager);
+
+	virtual void process() override;
+
+    private:
+	GroupManager* groupManager;
 };

@@ -5,7 +5,7 @@ Position::Position(const Vector2f& vector, const float angle, const OutOfBoundsA
 
 void Position::update(const Velocity& velocity, const float mass, const float deltaTime) {
 	vector += velocity.linear * deltaTime / mass;
-	angle += velocity.angular * deltaTime / (mass / 8.0f);
+	angle += velocity.angular * deltaTime / (mass / 20.0f);
 
 	adjustAngle();
 }

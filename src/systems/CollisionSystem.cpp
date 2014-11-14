@@ -1,12 +1,14 @@
 #include "systems/CollisionSystem.hpp"
 
-void CollisionSystem::initialize() {
-	watchComponents<Position, Geometry>();
-}
+CollisionSystem::CollisionSystem(GroupManager* groupManager):
+    groupManager{groupManager} {}
 
-void CollisionSystem::processEntity(Entity* entity) {
-    auto position = entity->getComponent<Position>();
-    auto geometry = entity->getComponent<Geometry>();
-    
-    // ... handle collisions ...
+void CollisionSystem::process() {
+    auto projectiles = groupManager->getEntitiesInGroup("projectiles");
+    auto asteroids = groupManager->getEntitiesInGroup("asteroids");
+
+    for (auto& projectile: projectiles) {
+	for (auto& asteroid: asteroids) {
+	}
+    }
 }

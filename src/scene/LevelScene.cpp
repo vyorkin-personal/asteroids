@@ -18,11 +18,11 @@ void LevelScene::onInitialize() {
     systemManager->add(new MovementSystem(worldBounds));
     systemManager->add(new RenderingSystem());
     systemManager->add(new InputSystem());
-    systemManager->add(new CollisionSystem());
+    systemManager->add(new CollisionSystem(world->getGroupManager()));
     systemManager->add(new ExplosionSystem());
     systemManager->add(new CannonSystem(entityFactory));
 
-    reset();
+    prepare();
 }
 
 void LevelScene::onPlay() {
@@ -70,16 +70,24 @@ Rectanglef LevelScene::getViewVolume(const float aspectRatio) const {
     return viewVolume;
 }
 
-void LevelScene::reset() {
+void LevelScene::prepare() {
     entityFactory->createPlayer();
-    for (int i = 0; i <= 10; i++)
+    for (int i = 0; i <= 40; i++)
         entityFactory->createAsteriod();
+}
+
+void LevelScene::reset() {
+    world->reset();
+    prepare();
 }
 
 void LevelScene::onKeyDown(const int keyCode, const char keyChar) {
     world->getEventBus()->emit(KeyDownEvent(keyCode, keyChar));
 
     switch (keyChar) {
+        case 'r':
+            reset();
+            break;
         case 27:
             exit(0);
             break;

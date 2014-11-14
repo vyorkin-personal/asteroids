@@ -27,13 +27,16 @@ class EntityFactory {
 
 	Entity* createAsteriod();
 	Entity* createPlayer();
-	Entity* createProjectile(Momentum* momentum, Position* position, const float radius);
+	Entity* createProjectile(Momentum* momentum, Position* position);
 
     private:
+	using FloatDistribution = std::uniform_real_distribution<float>;
+
 	Polygon generateConvexPolygon(const float radius);
 	Vector2f getRandomVector();
 	float getRandomAngle();
 	float getRandomVelocity();
+	float getRandomRadius();
 
 	World* world;
 
@@ -47,8 +50,10 @@ class EntityFactory {
 
 	std::random_device randomDevice;
 	std::mt19937_64 randomGenerator;
-	std::uniform_real_distribution<float> x_distribution;
-	std::uniform_real_distribution<float> y_distribution;
-	std::uniform_real_distribution<float> radian_distribution;
-	std::uniform_real_distribution<float> velocity_distribution;
+
+	FloatDistribution x_distribution;
+	FloatDistribution y_distribution;
+	FloatDistribution radian_distribution;
+	FloatDistribution velocity_distribution;
+	FloatDistribution radius_distribution;
 };

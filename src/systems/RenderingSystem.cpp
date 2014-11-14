@@ -11,9 +11,6 @@ bool RenderingSystem::onProcessing() {
     return true;
 }
 
-void RenderingSystem::onProcessed() {
-}
-
 void RenderingSystem::processEntity(Entity* entity) {
     const auto view = entity->getComponent<View>();
     const auto position = entity->getComponent<Position>();

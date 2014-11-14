@@ -18,6 +18,6 @@ void CannonSystem::processEntity(Entity* entity) {
 		auto momentum = entity->getComponent<Momentum>();
 		auto geometry = entity->getComponent<Geometry>();
 
-		entityFactory->createProjectile(momentum, position, geometry->radius);
+		entityFactory->createProjectile(momentum, position);
 	}
 }

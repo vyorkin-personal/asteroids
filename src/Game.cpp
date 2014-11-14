@@ -19,7 +19,7 @@ void Game::initialize(int argc, char** argv) {
 
 void Game::start() {
     auto sceneManager = window->getSceneManager();
-    auto levelScene = new LevelScene(Rectanglef(-10.0f, -10.0f, 10.0f, 10.0f));
+    auto levelScene = new LevelScene(Rectanglef(-20.0f, -20.0f, 20.0f, 20.0f));
 
     sceneManager->add(levelScene);
     sceneManager->setCurrent(levelScene);

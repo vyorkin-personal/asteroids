@@ -6,7 +6,7 @@ namespace glut {
     void WindowDispatcher::initialize(WindowManager* windowManager) {
         WindowDispatcher::windowManager = windowManager;
 
-        glutIdleFunc(idleFunc);
+        /* glutIdleFunc(idleFunc); */
         resetTimer();
     }
 
