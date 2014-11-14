@@ -18,7 +18,7 @@
 
 class LevelScene: public Scene {
     public:
-        LevelScene(const Size& size);
+        LevelScene(const Rectanglef& worldBounds);
         ~LevelScene();
 
         virtual void onInitialize() override;
@@ -26,15 +26,18 @@ class LevelScene: public Scene {
         virtual void onPause() override;
 
         virtual void onRender(const float deltaTime) override;
-        virtual void onResize(const Size& size) override;
+        virtual void onResize(const Size2i& size) override;
         virtual void onKeyDown(const int keyCode, const char keyChar) override;
         virtual void onKeyUp(const int keyCode, const char keyChar) override;
 
         void reset();
 
     private:
+        void setOrtho(const float aspectRatio);
+        Rectanglef getViewVolume(const float aspectRatio) const;
+
         EntityFactory* entityFactory;
         World* world;
 
-        Size windowSize;
+        Rectanglef worldBounds;
 };

@@ -21,14 +21,14 @@ namespace glut {
         glutSetWindowTitle(title);
     }
 
-    Size Window::getSize() const {
-        return Size(
+    Size2i Window::getSize() const {
+        return Size2i(
             glutGet(GLUT_WINDOW_WIDTH),
             glutGet(GLUT_WINDOW_HEIGHT)
         );
     }
 
-    void Window::setSize(const Size& size) {
+    void Window::setSize(const Size2i& size) {
         glutReshapeWindow(size.x, size.y);
         this->size = size;
     }

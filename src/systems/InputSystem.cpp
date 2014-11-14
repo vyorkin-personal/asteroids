@@ -1,10 +1,9 @@
 #include "systems/InputSystem.hpp"
 
 void InputSystem::initialize() {
-	auto events = getEventBus();
-
 	watchTags({"player"});
 
+	auto events = getEventBus();
 	events->subscribe<KeyDownEvent>(this, &InputSystem::onKeyDown);
 	events->subscribe<KeyUpEvent>(this, &InputSystem::onKeyUp);
 }
@@ -20,24 +19,21 @@ void InputSystem::onKeyUp(const KeyUpEvent& e) {
 }
 
 void InputSystem::processEntity(Entity* entity) {
-	for (auto& entity: getEntities()) {
-		auto position = entity->getComponent<Position>();
-		auto momentum = entity->getComponent<Momentum>();
+	auto position = entity->getComponent<Position>();
+	auto momentum = entity->getComponent<Momentum>();
+	auto cannon = entity->getComponent<Cannon>();
 
-		auto rotation = position->rotation;
-		auto dt = getDelta();
+	const auto dt = getDelta();
 
-		if (specialKeys[Keys::Forward])
-			momentum->updateLinear(rotation, dt);
-		else if (specialKeys[Keys::Backward])
-			momentum->updateLinear(rotation, -dt);
+	cannon->trigger = keys[Keys::Fire];
 
-		if (specialKeys[Keys::Right])
-			momentum->updateAngular(-dt);
-		else if (specialKeys[Keys::Left])
-			momentum->updateAngular(dt);
+	if (specialKeys[Keys::Forward])
+		momentum->move(position->angle, dt);
+	else if (specialKeys[Keys::Backward])
+		momentum->move(position->angle, -dt);
 
-		if (specialKeys[Keys::Fire])
-			entity->getComponent<Cannon>()->trigger = true;
-	}
+	if (specialKeys[Keys::Right])
+		momentum->rotate(-dt);
+	else if (specialKeys[Keys::Left])
+		momentum->rotate(dt);
 }

@@ -17,7 +17,7 @@ SOURCES := $(shell find $(SRC_DIR) -type f -name *.$(SRC_EXT))
 LIB := -lstdc++
 INC := -I include -I $(GFS_LIB_DIR)/include
 
-CXXFLAGS := -g -std=c++11 -Wall -pedantic
+CXXFLAGS := -g -std=c++11 -Wall -pedantic -DDEBUG
 MAKEFLAGS += --quiet
 LDFLAGS = -framework Carbon -framework OpenGL -framework GLUT -L $(GFS_LIB_DIR)
 

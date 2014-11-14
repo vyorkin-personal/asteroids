@@ -7,25 +7,25 @@ void RenderingSystem::initialize() {
 bool RenderingSystem::onProcessing() {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glPushMatrix();
 
     return true;
 }
 
 void RenderingSystem::onProcessed() {
-    glPopMatrix();
 }
 
 void RenderingSystem::processEntity(Entity* entity) {
-    auto view = entity->getComponent<View>();
-    auto position = entity->getComponent<Position>();
+    const auto view = entity->getComponent<View>();
+    const auto position = entity->getComponent<Position>();
     const auto geometry = entity->getComponent<Geometry>();
-    const float radius = geometry->radius;
-    const auto vec = position->vector;
 
-    glTranslatef(vec.x - radius, vec.y - radius, 0.0f);
-    glRotatef(position->rotation, 0.0f, 0.0f, 1.0f);
-    glTranslatef(-radius, -radius, 0.0f);
+    glPushMatrix();
+
+    glTranslatef(position->vector.x, position->vector.y, 0.0f);
+    glRotatef(position->angle, 0.0f, 0.0f, 1.0f);
+    glTranslatef(-geometry->radius, -geometry->radius, 0.0f);
     
-    view->renderer->render(entity, getDelta());
+    view->render(entity, getDelta());
+
+    glPopMatrix();
 }

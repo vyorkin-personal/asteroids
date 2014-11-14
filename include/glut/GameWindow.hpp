@@ -14,7 +14,7 @@ namespace glut {
                 return sceneManager;
             }
 
-            virtual void onResize(const Size& size) override;
+            virtual void onResize(const Size2i& size) override;
             virtual void onRender(const float deltaTime) override;
             virtual void onDestroy() override;
             virtual void onShow() override;

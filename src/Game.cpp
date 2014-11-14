@@ -4,7 +4,7 @@ Game::Game() {
     application = new glut::Application();
     window = new glut::GameWindow();
     windowParameters = glut::WindowParameters("Asteriods",
-        Point2i(10, 10), Size(640, 480), false);
+        Point2i(200, 100), Size2i(640, 480), false);
 }
 
 Game::~Game() {
@@ -18,8 +18,8 @@ void Game::initialize(int argc, char** argv) {
 }
 
 void Game::start() {
-    auto levelScene = new LevelScene(window->getSize());
     auto sceneManager = window->getSceneManager();
+    auto levelScene = new LevelScene(Rectanglef(-10.0f, -10.0f, 10.0f, 10.0f));
 
     sceneManager->add(levelScene);
     sceneManager->setCurrent(levelScene);

@@ -1,7 +1,10 @@
 #include "renderers/AsteroidRenderer.hpp"
 
 void AsteroidRenderer::render(Entity* entity, const float delta) {
+	auto appearance = entity->getComponent<AsteroidAppearance>();
+
 	glBegin(GL_POLYGON);
-	// render polygon here
+	for (const auto& vertex: appearance->polygon.vertices)
+		glVertex2f(vertex.x, vertex.y);
 	glEnd();
 }

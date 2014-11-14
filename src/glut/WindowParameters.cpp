@@ -2,7 +2,7 @@
 
 namespace glut {
     WindowParameters::WindowParameters(const char* title, const Point2i& position,
-	const Size& size, const bool fullscreen):
+	const Size2i& size, const bool fullscreen):
 	title{title}, position{position},
 	size{size}, fullscreen{fullscreen} {
     
@@ -38,6 +38,6 @@ namespace glut {
     }
 
     WindowParameters WindowParameters::Default = WindowParameters(
-	"OpenGL window", Point2i(10, 10), Size(640, 480)
+	"OpenGL window", Point2i(10, 10), Size2i(640, 480)
     );
 }

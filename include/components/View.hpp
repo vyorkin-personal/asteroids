@@ -6,5 +6,7 @@
 struct View: public Component {
     View(Renderer* renderer);
 
+    void render(Entity* entity, const float delta);
+
     Renderer* renderer;
 };

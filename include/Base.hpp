@@ -47,9 +47,15 @@ namespace glut {
     using WindowMap = std::unordered_map<int, Window*>;
 }
 
+struct Velocity;
+struct Dumping;
+
 struct KeyEvent;
 struct MouseEvent;
 struct ExplosionEvent;
+
+struct ShipAppearance;
+struct AsteroidAppearance;
 
 class Renderer;
 class PlayerRenderer;

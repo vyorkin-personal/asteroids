@@ -14,8 +14,8 @@ namespace glut {
 
             void setTitle(const char* title);
 
-            Size getSize() const;
-            void setSize(const Size& size);
+            Size2i getSize() const;
+            void setSize(const Size2i& size);
             Point2i getPosition() const;
             void setPosition(const Point2i& position);
 
@@ -44,7 +44,7 @@ namespace glut {
             float elapsedTime;
 
             WindowParameters params;
-            Size size;
+            Size2i size;
             Point2i position;
 
             unsigned int clearFlag;

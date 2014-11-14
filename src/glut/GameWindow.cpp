@@ -9,7 +9,7 @@ namespace glut {
         delete sceneManager;
     }
 
-    void GameWindow::onResize(const Size& size) {
+    void GameWindow::onResize(const Size2i& size) {
         getCurrentScene()->onResize(size);
     }
 

@@ -2,21 +2,16 @@
 
 #include "Base.hpp"
 
+#include "common/Velocity.hpp"
+#include "common/Dumping.hpp"
+
 struct Momentum: public Component {
-    Momentum(const Vector2f& velocity, const float angularVelocity,
-	const float linearDumping, const float angularDumping = 1.0f);
+    Momentum(const Velocity& velocity, const Dumping& dumping);
 
-    void updateLinear(const float rotation, const float delta);
-    void updateAngular(const float delta);
+    void move(const float angle, const float deltaTime);
+    void rotate(const float deltaTime);
+    void dump();
 
-    void dump() {
-	velocity *= linearDumping;
-	angularVelocity *= angularDumping;
-    }
-
-    Vector2f velocity;
-    float angularVelocity;
-
-    float linearDumping;
-    float angularDumping;
+    Velocity velocity;
+    Dumping dumping;
 };

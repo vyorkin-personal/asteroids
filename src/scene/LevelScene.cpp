@@ -1,8 +1,10 @@
 #include "scene/LevelScene.hpp"
 
-LevelScene::LevelScene(const Size& size): windowSize{size} {
+LevelScene::LevelScene(const Rectanglef& worldBounds):
+    worldBounds{worldBounds} {
+
     world = new World();
-    entityFactory = new EntityFactory(world, size);
+    entityFactory = new EntityFactory(world, worldBounds);
 }
 
 LevelScene::~LevelScene() {
@@ -13,7 +15,7 @@ LevelScene::~LevelScene() {
 void LevelScene::onInitialize() {
     auto systemManager = world->getSystemManager();
 
-    systemManager->add(new MovementSystem());
+    systemManager->add(new MovementSystem(worldBounds));
     systemManager->add(new RenderingSystem());
     systemManager->add(new InputSystem());
     systemManager->add(new CollisionSystem());
@@ -41,24 +43,37 @@ void LevelScene::onRender(const float deltaTime) {
     world->process();
 }
 
-void LevelScene::onResize(const Size& size) {
-    windowSize = size;
-    const float aspectRatio = (float)size.x / (float)size.y;
-
+void LevelScene::onResize(const Size2i& size) {
     glViewport(0, 0, size.x, size.y);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    if (aspectRatio >= 1.0f)
-        glOrtho(-10.0 * aspectRatio, 10.0 * aspectRatio, -10.0, 10.0, -1.0, 1.0);
-    else
-        glOrtho(-10.0, 10.0, -10.0 / aspectRatio, 10.0 / aspectRatio, -1.0, 1.0);
+    setOrtho((float)size.x / (float)size.y);
+}
+
+void LevelScene::setOrtho(const float aspectRatio) {
+    const auto volume = getViewVolume(aspectRatio);
+
+    glOrtho(volume.leftBottom.x, volume.rightTop.x,
+        volume.leftBottom.y, volume.rightTop.y, -1.0, 1.0);
+}
+
+Rectanglef LevelScene::getViewVolume(const float aspectRatio) const {
+    auto viewVolume = Rectanglef(worldBounds);
+    if (aspectRatio >= 1.0f) {
+        viewVolume.leftBottom.x *= aspectRatio;
+        viewVolume.rightTop.x *= aspectRatio;
+    } else {
+        viewVolume.leftBottom.y /= aspectRatio;
+        viewVolume.rightTop.y /= aspectRatio;
+    }
+    return viewVolume;
 }
 
 void LevelScene::reset() {
     entityFactory->createPlayer();
-    /* for (int i = 0; i <= 10; i++) */
-    /*     entityFactory->createAsteriod(); */
+    for (int i = 0; i <= 10; i++)
+        entityFactory->createAsteriod();
 }
 
 void LevelScene::onKeyDown(const int keyCode, const char keyChar) {

@@ -1,17 +1,17 @@
 #include "components/Momentum.hpp"
 
-Momentum::Momentum(const Vector2f& velocity, const float angularVelocity,
-	const float linearDumping, const float angularDumping):
-	velocity{velocity}, angularVelocity{angularVelocity},
-	linearDumping{linearDumping}, angularDumping{angularDumping} {}
+Momentum::Momentum(const Velocity& velocity, const Dumping& dumping):
+	velocity{velocity}, dumping{dumping} {}
 
-void Momentum::updateLinear(const float rotation, const float delta) {
-	const float angle = rotation * M_PI / 180.0f + M_PI / 2.0f;
-
-	velocity.x += cos(angle) * delta;
-	velocity.y += sin(angle) * delta;
+void Momentum::move(const float angle, const float deltaTime) {
+	const auto a = angle * M_PI / 180.0f + M_PI / 2.0f;
+	velocity.linear += Vector2f(cos(a), sin(a)) * deltaTime;
 }
 
-void Momentum::updateAngular(const float delta) {
-	angularVelocity += delta;
+void Momentum::rotate(const float deltaTime) {
+	velocity.angular += deltaTime;
+}
+
+void Momentum::dump() {
+	velocity.dump(dumping);
 }

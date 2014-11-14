@@ -8,6 +8,8 @@
 
 class MovementSystem: public System {
     public:
+	MovementSystem(const Rectanglef& worldBounds);
+
 	virtual void initialize() override;
 	virtual void processEntity(Entity* entity) override;
 
@@ -15,5 +17,5 @@ class MovementSystem: public System {
 	    Position* position, const float radius);
 
     private:
-	Size size;
+	Rectanglef worldBounds;
 };

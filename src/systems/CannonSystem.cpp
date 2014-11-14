@@ -11,14 +11,13 @@ void CannonSystem::processEntity(Entity* entity) {
 	auto cannon = entity->getComponent<Cannon>();
 	const auto dt = getDelta();
 
-	/*
 	cannon->update(dt);
 
 	if (cannon->isFiring()) {
 		auto position = entity->getComponent<Position>();
 		auto momentum = entity->getComponent<Momentum>();
+		auto geometry = entity->getComponent<Geometry>();
 
-		entityFactory->createProjectile();
+		entityFactory->createProjectile(momentum, position, geometry->radius);
 	}
-	*/
 }

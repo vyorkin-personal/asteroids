@@ -6,11 +6,11 @@ namespace glut {
     struct WindowParameters {
         WindowParameters() = default;
         WindowParameters(const char* title, const Point2i& position,
-            const Size& size, const bool fullscreen = true);
+            const Size2i& size, const bool fullscreen = true);
 
         String title;
         Point2i position;
-        Size size;
+        Size2i size;
 
         Color4f clearColor;
         bool fullscreen;

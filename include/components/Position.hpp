@@ -1,29 +1,20 @@
 #pragma once
 
 #include "Base.hpp"
+#include "common/Velocity.hpp"
 
-enum OffLimitBehavior { DESTROY, LOOP };
+enum OutOfBoundsAction { DESTROY, LOOP };
 
 struct Position: public Component {
-    Position(const Vector2f& vector, const float rotation,
-	const OffLimitBehavior offLimitBehavior = OffLimitBehavior::LOOP):
-	vector{vector}, rotation{rotation},
-	offLimitBehavior{offLimitBehavior} {}
+    Position(const Vector2f& vector = Vector2f::Zero, const float angle = 0.0f,
+	const OutOfBoundsAction outOfBoundsAction = OutOfBoundsAction::LOOP);
 
-    void move(const Vector2f& velocity) {
-	vector += velocity;
-    }
-    
-    void rotate(const float speed) {
-	rotation += speed;
-
-	if (rotation < 0.0f)
-	    rotation += 360.0f;
-	else if (rotation > 360.0f)
-	    rotation -= 360.0f;
-    }
+    void update(const Velocity& velocity, const float mass, const float deltaTime);
 
     Vector2f vector;
-    float rotation;
-    OffLimitBehavior offLimitBehavior;
+    float angle;
+    OutOfBoundsAction outOfBoundsAction;
+
+    private:
+	void adjustAngle();
 };

@@ -24,7 +24,7 @@ namespace glut {
     }
 
     void WindowDispatcher::reshapeFunc(int width, int height) {
-        getCurrentWindow()->onResize(Size(width, height));
+        getCurrentWindow()->onResize(Size2i(width, height));
     }
 
     void WindowDispatcher::displayFunc() {

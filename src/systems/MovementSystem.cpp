@@ -1,7 +1,10 @@
 #include "systems/MovementSystem.hpp"
 
+MovementSystem::MovementSystem(const Rectanglef& worldBounds):
+    worldBounds{worldBounds} {}
+
 void MovementSystem::initialize() {
-    watchComponents<Position, Momentum, Body>();
+    watchComponents<Position, Momentum, Geometry, Body>();
 }
 
 void MovementSystem::processEntity(Entity* entity) {
@@ -10,28 +13,35 @@ void MovementSystem::processEntity(Entity* entity) {
     auto geometry = entity->getComponent<Geometry>();
     auto body = entity->getComponent<Body>();
 
-    const float dt = getDelta();
-
-    position->move(momentum->velocity * dt / body->mass);
-    position->rotate(momentum->angularVelocity * dt * 25.0 / body->mass);
+    position->update(momentum->velocity, body->mass, getDelta());
     momentum->dump();
 
     handleScreenBounds(entity, position, geometry->radius); 
 }
 
-
 void MovementSystem::handleScreenBounds(Entity* entity,
     Position* position, const float radius) {
 
-    if (position->offLimitBehavior != OffLimitBehavior::LOOP) return;
+    if (position->outOfBoundsAction == OutOfBoundsAction::LOOP) {
 
-    if (position->vector.x > 10.0f)
-        position->vector.x = -10.0f;
-    else if (position->vector.x < -10.0f)
-        position->vector.x = 10.0f;
-    
-    if (position->vector.y > 10.0f)
-        position->vector.y = -10.0f;
-    else if (position->vector.y < -10.0f)
-        position->vector.y = 10.0f;
+        if (position->vector.x > worldBounds.rightTop.x)
+            position->vector.x = worldBounds.leftBottom.x;
+        else if (position->vector.x < worldBounds.leftBottom.x)
+            position->vector.x = worldBounds.rightTop.x;
+        
+        if (position->vector.y > worldBounds.rightTop.y)
+            position->vector.y = worldBounds.leftBottom.y;
+        else if (position->vector.y < worldBounds.leftBottom.y)
+            position->vector.y = worldBounds.rightTop.y;
+
+    } else if (position->outOfBoundsAction == OutOfBoundsAction::DESTROY) {
+
+        if (position->vector.x > worldBounds.rightTop.x ||
+            position->vector.x < worldBounds.leftBottom.x ||
+            position->vector.y > worldBounds.rightTop.y ||
+            position->vector.y < worldBounds.leftBottom.y) {
+
+            entity->destroy();
+        }
+    }
 }

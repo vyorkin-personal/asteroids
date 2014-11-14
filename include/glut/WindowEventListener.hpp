@@ -9,7 +9,7 @@ namespace glut {
             virtual void onInitialize() {}
             virtual void onIdle() {}
             virtual void onTimer(int value) {}
-            virtual void onResize(const Size& size) {}
+            virtual void onResize(const Size2i& size) {}
             virtual void onRender(const float deltaTime) {}
             virtual void onDestroy() {}
             virtual void onShow() {}
