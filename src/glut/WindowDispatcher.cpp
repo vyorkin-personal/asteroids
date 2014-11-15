@@ -6,7 +6,9 @@ namespace glut {
     void WindowDispatcher::initialize(WindowManager* windowManager) {
         WindowDispatcher::windowManager = windowManager;
 
-        /* glutIdleFunc(idleFunc); */
+        // NOTE: Increases CPU usage up to 99%
+        // glutIdleFunc(idleFunc);
+
         resetTimer();
     }
 

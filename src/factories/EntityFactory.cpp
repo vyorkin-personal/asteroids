@@ -36,7 +36,7 @@ Entity* EntityFactory::createAsteriod() {
     entity->addComponents({
         position,
         new Momentum(velocity, Dumping::One),
-        new Body(10000.0f, 4.0f),
+        new Body(40000.0f, 4.0f),
         geometry,
         new AsteroidAppearance(polygon),
         new View(asteroidRenderer)
@@ -53,8 +53,8 @@ Entity* EntityFactory::createPlayer() {
     entity->addComponents({
         new Position(),
         new Momentum(Velocity::Zero, Dumping(0.99f, 0.96f)),
-        new Geometry(0.5f),
-        new Body(200000.0f, 1.0f),
+        new Geometry(0.4f),
+        new Body(100000.0f, 1.0f),
         new Cannon(200.0f),
         new PlayerAppearance(
             Vector2f(0.0f, 0.0f),
@@ -73,10 +73,10 @@ Entity* EntityFactory::createProjectile(Momentum* momentum, Position* position) 
     entity->addToGroup("projectiles");
 
     const float speed = 100.0f;
-	const float angle = position->angle * M_PI / 180.0f + M_PI / 2.0f;
+    const float angle = position->angle * M_PI / 180.0f + M_PI / 2.0f;
 
-    auto projectileVelocity = Velocity(Vector2f(
-        cos(angle) * speed, sin(angle) * speed), 0.0f);
+    const auto projectileLinearVelocity = Vector2f(cos(angle) * speed, sin(angle) * speed);
+    auto projectileVelocity = Velocity(projectileLinearVelocity, 0.0f);
 
     auto projectilePosition = new Position(Vector2f(
         position->vector.x + cos(angle),
@@ -99,9 +99,8 @@ Polygon EntityFactory::generateConvexPolygon(const float radius) {
 
     float angle = 0.0f;
     while (angle < 2.0f * M_PI) { 
-        float x = radius * cos(angle);
-        float y = radius * sin(angle);
-
+        const float x = radius * cos(angle);
+        const float y = radius * sin(angle);
         polygon.vertices.push_back(Vector2f(x, y));
         angle += getRandomAngle() / 4.0f;
     }
