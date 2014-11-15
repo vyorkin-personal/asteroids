@@ -1,28 +1,14 @@
 #include "scene/LevelScene.hpp"
 
-LevelScene::LevelScene(const Rectanglef& worldBounds):
-    worldBounds{worldBounds} {
-
-    world = new World();
-    entityFactory = new EntityFactory(world, worldBounds);
-}
+LevelScene::LevelScene(SceneManager* sceneManager, World* world, Level* level):
+    Scene(sceneManager), world{world}, level{level} {}
 
 LevelScene::~LevelScene() {
-    delete entityFactory;
-    delete world;
+    delete level;
 }
 
 void LevelScene::onInitialize() {
-    auto systemManager = world->getSystemManager();
-
-    systemManager->add(new MovementSystem(worldBounds));
-    systemManager->add(new RenderingSystem());
-    systemManager->add(new InputSystem());
-    systemManager->add(new CollisionSystem(world->getGroupManager()));
-    systemManager->add(new ExplosionSystem());
-    systemManager->add(new CannonSystem(entityFactory));
-
-    prepare();
+    level->start();
 }
 
 void LevelScene::onPlay() {
@@ -31,6 +17,9 @@ void LevelScene::onPlay() {
 
     glEnable(GL_POLYGON_SMOOTH);
     glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
 
     glPointSize(4.0f);
 }
@@ -59,7 +48,7 @@ void LevelScene::setOrtho(const float aspectRatio) {
 }
 
 Rectanglef LevelScene::getViewVolume(const float aspectRatio) const {
-    auto viewVolume = Rectanglef(worldBounds);
+    auto viewVolume = Rectanglef(level->getWorldBounds());
     if (aspectRatio >= 1.0f) {
         viewVolume.leftBottom.x *= aspectRatio;
         viewVolume.rightTop.x *= aspectRatio;
@@ -70,23 +59,12 @@ Rectanglef LevelScene::getViewVolume(const float aspectRatio) const {
     return viewVolume;
 }
 
-void LevelScene::prepare() {
-    entityFactory->createPlayer();
-    for (int i = 0; i <= 40; i++)
-        entityFactory->createAsteriod();
-}
-
-void LevelScene::reset() {
-    world->reset();
-    prepare();
-}
-
 void LevelScene::onKeyDown(const int keyCode, const char keyChar) {
     world->getEventBus()->emit(KeyDownEvent(keyCode, keyChar));
 
     switch (keyChar) {
         case 'r':
-            reset();
+            level->restart();
             break;
         case 27:
             exit(0);

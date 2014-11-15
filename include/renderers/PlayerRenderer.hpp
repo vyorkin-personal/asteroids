@@ -2,8 +2,6 @@
 
 #include "Base.hpp"
 #include "renderers/Renderer.hpp"
-#include "components/Position.hpp"
-#include "components/Geometry.hpp"
 #include "components/appearance/PlayerAppearance.hpp"
 
 class PlayerRenderer: public Renderer {

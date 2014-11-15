@@ -1,31 +1,47 @@
 #include "systems/CollisionSystem.hpp"
 
-CollisionSystem::CollisionSystem(GroupManager* groupManager):
-    groupManager{groupManager} {}
-
 void CollisionSystem::process() {
-    auto projectiles = groupManager->getEntitiesInGroup("projectiles");
+    auto tagManager = world->getTagManager();
+    auto groupManager = world->getGroupManager();
+    auto eventBus = world->getEventBus();
+
+    auto player = tagManager->get("player");
     auto asteroids = groupManager->getEntitiesInGroup("asteroids");
+    auto projectiles = groupManager->getEntitiesInGroup("projectiles");
 
-    for (auto& projectile: projectiles) {
-	auto projectilePosition = projectile->getComponent<Position>();
-	auto projectileGeometry = projectile->getComponent<Geometry>();
-	const auto projectileRadius = projectileGeometry->radius;
+    for (auto& asteroid: asteroids) {
+	/* if (hasCollision(asteroid, player)) { */
+	/*     eventBus->emit(CollisionEvent(asteroid, */
+	/* 	player, CollisionKind::AsteroidPlayer)); */
+	/* } */
 
-	for (auto& asteroid: asteroids) {
-	    auto asteroidPosition = asteroid->getComponent<Position>();
-	    auto asteroidGeometry = asteroid->getComponent<Geometry>();
-	    const auto asteroidRadius = asteroidGeometry->radius;
+	for (auto& otherAsteroid: asteroids) {
+	    if (asteroid == otherAsteroid) continue;
 
-	    auto asteroidVector = asteroidPosition->vector;
+	    if (hasCollision(asteroid, otherAsteroid)) {	
+		eventBus->emit(CollisionEvent(asteroid,
+		    otherAsteroid, CollisionKind::AsteriodAsteroid));
+	    }
+	}
 
-	    const float minDistance = projectileRadius + asteroidRadius;
-	    const float distance = asteroidVector.distance(projectilePosition->vector);
-
-	    if (distance < minDistance) {
-		asteroid->destroy();
-		projectile->destroy();
+	for (auto& projectile: projectiles) {
+	    if (hasCollision(asteroid, projectile)) {
+		eventBus->emit(CollisionEvent(asteroid,
+		    projectile, CollisionKind::AsteroidProjectile));
 	    }
 	}
     }
+}
+
+bool CollisionSystem::hasCollision(Entity* entity1, Entity* entity2) {
+    const auto vector1 = entity1->getComponent<Position>()->vector;
+    const auto radius1 = entity1->getComponent<Geometry>()->radius;
+
+    const auto vector2 = entity2->getComponent<Position>()->vector;
+    const auto radius2 = entity2->getComponent<Geometry>()->radius;
+
+    const float minDistance = radius1 + radius2;
+    const float distance = vector1.distance(vector2);
+
+    return distance < minDistance;
 }

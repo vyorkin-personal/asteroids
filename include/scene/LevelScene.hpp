@@ -3,22 +3,16 @@
 #include "Base.hpp"
 #include "glut/Window.hpp"
 #include "scene/Scene.hpp"
+#include "scene/SceneManager.hpp"
 
 #include "events/KeyEvent.hpp"
 
-#include "systems/CollisionSystem.hpp"
-#include "systems/MovementSystem.hpp"
-#include "systems/ParticleSystem.hpp"
-#include "systems/RenderingSystem.hpp"
-#include "systems/InputSystem.hpp"
-#include "systems/CannonSystem.hpp"
-#include "systems/ExplosionSystem.hpp"
-
-#include "factories/EntityFactory.hpp"
+#include "Level.hpp"
+#include "LevelSettings.hpp"
 
 class LevelScene: public Scene {
     public:
-        LevelScene(const Rectanglef& worldBounds);
+        LevelScene(SceneManager* sceneManager, World* world, Level* level);
         ~LevelScene();
 
         virtual void onInitialize() override;
@@ -30,15 +24,10 @@ class LevelScene: public Scene {
         virtual void onKeyDown(const int keyCode, const char keyChar) override;
         virtual void onKeyUp(const int keyCode, const char keyChar) override;
 
-        void prepare();
-        void reset();
-
     private:
         void setOrtho(const float aspectRatio);
         Rectanglef getViewVolume(const float aspectRatio) const;
 
-        EntityFactory* entityFactory;
         World* world;
-
-        Rectanglef worldBounds;
+        Level* level;
 };

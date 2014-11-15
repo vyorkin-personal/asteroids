@@ -88,6 +88,7 @@ namespace glut {
     void WindowDispatcher::passiveMotionFunc(int x, int y) {
         getCurrentWindow()->onMouseMove(Point2i(x, y));
     }
+
     void WindowDispatcher::idleFunc() {
 	for (const auto& it: windowManager->windows) {
 	    if (it.second->isVisible())
@@ -107,7 +108,7 @@ namespace glut {
     }
 
     void WindowDispatcher::resetTimer() {
-        glutTimerFunc(24, timerFunc, 0);
+        glutTimerFunc(33, timerFunc, 0);
     }
 
     MouseButton WindowDispatcher::getMouseButton(const int button) {

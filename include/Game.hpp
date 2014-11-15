@@ -5,6 +5,8 @@
 #include "glut/Application.hpp"
 #include "scene/SceneManager.hpp"
 #include "scene/LevelScene.hpp"
+#include "Level.hpp"
+#include "LevelSettings.hpp"
 
 class Game {
     public:
@@ -15,7 +17,11 @@ class Game {
         void start();
 
     private:
+        glut::WindowParameters windowParameters;
+
         glut::Application* application;
         glut::GameWindow* window;
-        glut::WindowParameters windowParameters;
+
+        World* world;
+        Level* level;
 };

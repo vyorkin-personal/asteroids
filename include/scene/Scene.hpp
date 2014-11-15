@@ -2,11 +2,12 @@
 
 #include "Base.hpp"
 #include "glut/WindowEventListener.hpp"
+#include "scene/SceneManager.hpp"
 #include "scene/SceneState.hpp"
 
 class Scene: public glut::WindowEventListener {
     public:
-        Scene();
+        Scene(SceneManager* sceneManager);
         virtual ~Scene() = default;
 
         SceneState getState() const {
@@ -15,6 +16,9 @@ class Scene: public glut::WindowEventListener {
 
         virtual void onPlay() {}
         virtual void onPause() {}
+
+    protected:
+        SceneManager* sceneManager;
 
     private:
         SceneState state;

@@ -7,17 +7,20 @@ EntityFactory::EntityFactory(World* world, const Rectanglef& worldBounds):
     playerRenderer = new PlayerRenderer();
     asteroidRenderer = new AsteroidRenderer();
     projectileRenderer = new ProjectileRenderer();
+    particleRenderer = new ParticleRenderer();
 
     dumper = new EntityManagerDumper(world->getEntityManager());
     
     x_distribution = FloatDistribution(worldBounds.leftBottom.x, worldBounds.rightTop.x);
     y_distribution = FloatDistribution(worldBounds.leftBottom.y, worldBounds.rightTop.y);
     radian_distribution = FloatDistribution(0.0f, 2.0f * M_PI);
-    velocity_distribution = FloatDistribution(4.0f, 100.0f);
-    radius_distribution = FloatDistribution(0.8f, 2.0f);
+    velocity_distribution = FloatDistribution(-100.0f, 100.0f);
+    radius_distribution = FloatDistribution(0.8f, 2.4f);
+    color_distribution = FloatDistribution(0.1f, 1.0f);
 }
 
 EntityFactory::~EntityFactory() {
+    delete particleRenderer;
     delete projectileRenderer;
     delete asteroidRenderer;
     delete playerRenderer;
@@ -29,13 +32,13 @@ Entity* EntityFactory::createAsteriod() {
     entity->addToGroup("asteroids");
 
     auto velocity = Velocity(getRandomVector(), getRandomVelocity());
-    auto position = new Position(getRandomVector(), getRandomAngle());
     auto geometry = new Geometry(getRandomRadius());
+    auto position = new Position(getRandomVector(), getRandomAngle());
     auto polygon = generateConvexPolygon(geometry->radius);
 
     entity->addComponents({
         position,
-        new Momentum(velocity, Dumping::One),
+        new Momentum(velocity, Dumping(0.999f, 0.999f)),
         new Body(40000.0f, 4.0f),
         geometry,
         new AsteroidAppearance(polygon),
@@ -94,13 +97,36 @@ Entity* EntityFactory::createProjectile(Momentum* momentum, Position* position) 
     return entity;
 }
 
+void EntityFactory::createExplosion(const Vector2f& vector, const int numParticles) {
+    for (int i = 0; i < numParticles; i++) {
+        auto entity = world->createEntity();
+        entity->addToGroup("particles");
+
+        auto velocity = Velocity(getRandomVector(), getRandomVelocity());
+        auto position = new Position(vector,
+            getRandomAngle(),
+            OutOfBoundsAction::DESTROY
+        );
+
+        entity->addComponents({
+            position,
+            new Momentum(velocity, Dumping(0.99f, 0.99f)),
+            new Body(800.0f, 4.0f),
+            new Geometry(0.001f),
+            new Particle(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 1200.0f),
+            new View(particleRenderer)
+        });
+
+    }
+}
+
 Polygon EntityFactory::generateConvexPolygon(const float radius) {
     auto polygon = Polygon();
 
     float angle = 0.0f;
     while (angle < 2.0f * M_PI) { 
-        const float x = radius * cos(angle);
-        const float y = radius * sin(angle);
+        const float x = radius + radius * cos(angle);
+        const float y = radius + radius * sin(angle);
         polygon.vertices.push_back(Vector2f(x, y));
         angle += getRandomAngle() / 4.0f;
     }
@@ -121,4 +147,13 @@ float EntityFactory::getRandomVelocity() {
 
 float EntityFactory::getRandomRadius() {
     return radius_distribution(randomGenerator);
+}
+
+Color4f EntityFactory::getRandomColor() {
+    return Color4f(
+        color_distribution(randomGenerator),
+        color_distribution(randomGenerator),
+        color_distribution(randomGenerator),
+        1.0f
+    );
 }

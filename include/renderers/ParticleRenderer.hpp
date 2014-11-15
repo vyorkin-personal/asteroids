@@ -2,9 +2,9 @@
 
 #include "Base.hpp"
 #include "renderers/Renderer.hpp"
-#include "components/appearance/AsteroidAppearance.hpp"
+#include "components/Particle.hpp"
 
-class AsteroidRenderer: public Renderer {
+class ParticleRenderer: public Renderer {
     public:
         virtual void render(Entity* entity, const float delta) override;
 };

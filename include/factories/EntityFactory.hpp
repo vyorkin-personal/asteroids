@@ -19,6 +19,7 @@
 #include "renderers/PlayerRenderer.hpp"
 #include "renderers/AsteroidRenderer.hpp"
 #include "renderers/ProjectileRenderer.hpp"
+#include "renderers/ParticleRenderer.hpp"
 
 class EntityFactory {
     public:
@@ -29,6 +30,8 @@ class EntityFactory {
 	Entity* createPlayer();
 	Entity* createProjectile(Momentum* momentum, Position* position);
 
+	void createExplosion(const Vector2f& vector, const int numParticles = 20);
+
     private:
 	using FloatDistribution = std::uniform_real_distribution<float>;
 
@@ -37,12 +40,14 @@ class EntityFactory {
 	float getRandomAngle();
 	float getRandomVelocity();
 	float getRandomRadius();
+	Color4f getRandomColor();
 
 	World* world;
 
 	PlayerRenderer* playerRenderer;
 	AsteroidRenderer* asteroidRenderer;
 	ProjectileRenderer* projectileRenderer;
+	ParticleRenderer* particleRenderer;
 
 	Rectanglef worldBounds;
 
@@ -56,4 +61,5 @@ class EntityFactory {
 	FloatDistribution radian_distribution;
 	FloatDistribution velocity_distribution;
 	FloatDistribution radius_distribution;
+	FloatDistribution color_distribution;
 };

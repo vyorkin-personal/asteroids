@@ -5,9 +5,9 @@
 enum ExplosionKind { Small, Huge };
 
 struct ExplosionEvent: public Event {
-    ExplosionEvent(const Vector2f& position, const ExplosionKind& kind):
-        position{position}, kind{kind} {}
+    ExplosionEvent(const Vector2f& vector, const ExplosionKind& kind):
+        vector{vector}, kind{kind} {}
 
-    Vector2f position;
+    Vector2f vector;
     ExplosionKind kind;
 };

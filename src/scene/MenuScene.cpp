@@ -1,5 +1,8 @@
 #include "scene/MenuScene.hpp"
 
+MenuScene::MenuScene(SceneManager* sceneManager):
+	Scene(sceneManager) {}
+
 void MenuScene::onInitialize() {
 }
 
