@@ -14,11 +14,10 @@ EntityFactory::EntityFactory(World* world, const Rectanglef& worldBounds):
     x_distribution = FloatDistribution(worldBounds.leftBottom.x, worldBounds.rightTop.x);
     y_distribution = FloatDistribution(worldBounds.leftBottom.y, worldBounds.rightTop.y);
     radian_distribution = FloatDistribution(0.0f, 2.0f * M_PI);
-    velocity_distribution = FloatDistribution(-100.0f, 100.0f);
+    velocity_distribution = FloatDistribution(-80.0f, 80.0f);
     radius_distribution = FloatDistribution(0.8f, 2.4f);
     color_distribution = FloatDistribution(0.1f, 1.0f);
-    lifetime_distribution = FloatDistribution(100.0f, 1200.0f);
-    mass_distribution = FloatDistribution(18000.0f, 40000.0f);
+    lifetime_distribution = FloatDistribution(10.0f, 800.0f);
 }
 
 EntityFactory::~EntityFactory() {
@@ -30,24 +29,26 @@ EntityFactory::~EntityFactory() {
 }
 
 Entity* EntityFactory::createAsteroid() {
-    return createAsteroid(getRandomVector(), getRandomMass(), getRandomRadius());
+    const auto radius = getRandomRadius();
+    return createAsteroid(getRandomVector(), radius);
 }
 
-Entity* EntityFactory::createAsteroid(const Vector2f& positionVector, const float mass, const float radius) {
+Entity* EntityFactory::createAsteroid(const Vector2f& positionVector, const float radius) {
     auto entity = world->createEntity();
     entity->addToGroup("asteroids");
 
+    const auto mass = radius * 24000.0f;
     const auto linearVelocity = Vector2f(getRandomVelocity(), getRandomVelocity());
     const auto velocity = Velocity(linearVelocity, getRandomVelocity());
 
-    auto geometry = new Geometry(getRandomRadius());
+    auto geometry = new Geometry(radius);
     auto position = new Position(positionVector, getRandomAngle());
     auto polygon = generateConvexPolygon(geometry->radius);
 
     entity->addComponents({
         position,
         new Momentum(velocity, Dumping(0.999f, 0.999f)),
-        new Body(mass * geometry->radius, 4.0f),
+        new Body(mass, 4.0f),
         geometry,
         new AsteroidAppearance(polygon),
         new View(asteroidRenderer)
@@ -66,7 +67,7 @@ Entity* EntityFactory::createPlayer() {
         new Momentum(Velocity::Zero, Dumping(0.99f, 0.96f)),
         new Geometry(0.4f),
         new Body(100000.0f, 1.0f),
-        new Cannon(200.0f),
+        new Cannon(120.0f),
         new PlayerAppearance(
             Vector2f(0.0f, 0.0f),
             Vector2f(0.5f, 1.0f),
@@ -118,7 +119,7 @@ void EntityFactory::createExplosion(const Vector2f& vector, const int numParticl
 
         entity->addComponents({
             position,
-            new Momentum(velocity, Dumping(0.9f, 1.0f)),
+            new Momentum(velocity, Dumping(0.86f, 1.0f)),
             new Body(1.0f, 0.01f),
             new Geometry(0.001f),
             new Particle(Color4f(1.0f, 1.0f, 1.0f, 1.0f), getRandomLifetime()),
@@ -168,8 +169,4 @@ Color4f EntityFactory::getRandomColor() {
 
 float EntityFactory::getRandomLifetime() {
     return lifetime_distribution(randomGenerator);
-}
-
-float EntityFactory::getRandomMass() {
-    return mass_distribution(randomGenerator);
 }
