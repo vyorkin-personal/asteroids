@@ -17,6 +17,8 @@ EntityFactory::EntityFactory(World* world, const Rectanglef& worldBounds):
     velocity_distribution = FloatDistribution(-100.0f, 100.0f);
     radius_distribution = FloatDistribution(0.8f, 2.4f);
     color_distribution = FloatDistribution(0.1f, 1.0f);
+    lifetime_distribution = FloatDistribution(100.0f, 1200.0f);
+    mass_distribution = FloatDistribution(18000.0f, 40000.0f);
 }
 
 EntityFactory::~EntityFactory() {
@@ -27,19 +29,25 @@ EntityFactory::~EntityFactory() {
     delete dumper;
 }
 
-Entity* EntityFactory::createAsteriod() {
+Entity* EntityFactory::createAsteroid() {
+    return createAsteroid(getRandomVector(), getRandomMass(), getRandomRadius());
+}
+
+Entity* EntityFactory::createAsteroid(const Vector2f& positionVector, const float mass, const float radius) {
     auto entity = world->createEntity();
     entity->addToGroup("asteroids");
 
-    auto velocity = Velocity(getRandomVector(), getRandomVelocity());
+    const auto linearVelocity = Vector2f(getRandomVelocity(), getRandomVelocity());
+    const auto velocity = Velocity(linearVelocity, getRandomVelocity());
+
     auto geometry = new Geometry(getRandomRadius());
-    auto position = new Position(getRandomVector(), getRandomAngle());
+    auto position = new Position(positionVector, getRandomAngle());
     auto polygon = generateConvexPolygon(geometry->radius);
 
     entity->addComponents({
         position,
         new Momentum(velocity, Dumping(0.999f, 0.999f)),
-        new Body(40000.0f, 4.0f),
+        new Body(mass * geometry->radius, 4.0f),
         geometry,
         new AsteroidAppearance(polygon),
         new View(asteroidRenderer)
@@ -102,7 +110,7 @@ void EntityFactory::createExplosion(const Vector2f& vector, const int numParticl
         auto entity = world->createEntity();
         entity->addToGroup("particles");
 
-        auto velocity = Velocity(getRandomVector(), getRandomVelocity());
+        auto velocity = Velocity(getRandomVector() / 1200.0f, 0.0f);
         auto position = new Position(vector,
             getRandomAngle(),
             OutOfBoundsAction::DESTROY
@@ -110,10 +118,10 @@ void EntityFactory::createExplosion(const Vector2f& vector, const int numParticl
 
         entity->addComponents({
             position,
-            new Momentum(velocity, Dumping(0.99f, 0.99f)),
-            new Body(800.0f, 4.0f),
+            new Momentum(velocity, Dumping(0.9f, 1.0f)),
+            new Body(1.0f, 0.01f),
             new Geometry(0.001f),
-            new Particle(Color4f(1.0f, 1.0f, 1.0f, 1.0f), 1200.0f),
+            new Particle(Color4f(1.0f, 1.0f, 1.0f, 1.0f), getRandomLifetime()),
             new View(particleRenderer)
         });
 
@@ -156,4 +164,12 @@ Color4f EntityFactory::getRandomColor() {
         color_distribution(randomGenerator),
         1.0f
     );
+}
+
+float EntityFactory::getRandomLifetime() {
+    return lifetime_distribution(randomGenerator);
+}
+
+float EntityFactory::getRandomMass() {
+    return mass_distribution(randomGenerator);
 }

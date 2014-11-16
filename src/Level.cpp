@@ -35,5 +35,5 @@ void Level::createSystems() {
 void Level::createObjects() {
     entityFactory->createPlayer();
     for (int i = 0; i <= settings.numAsteroids; i++)
-        entityFactory->createAsteriod();
+        entityFactory->createAsteroid();
 }

@@ -26,7 +26,8 @@ class EntityFactory {
 	EntityFactory(World* world, const Rectanglef& worldBounds);
 	~EntityFactory();
 
-	Entity* createAsteriod();
+	Entity* createAsteroid();
+	Entity* createAsteroid(const Vector2f& positionVector, const float mass, const float radius);
 	Entity* createPlayer();
 	Entity* createProjectile(Momentum* momentum, Position* position);
 
@@ -41,6 +42,8 @@ class EntityFactory {
 	float getRandomVelocity();
 	float getRandomRadius();
 	Color4f getRandomColor();
+	float getRandomLifetime();
+	float getRandomMass();
 
 	World* world;
 
@@ -62,4 +65,6 @@ class EntityFactory {
 	FloatDistribution velocity_distribution;
 	FloatDistribution radius_distribution;
 	FloatDistribution color_distribution;
+	FloatDistribution lifetime_distribution;
+	FloatDistribution mass_distribution;
 };

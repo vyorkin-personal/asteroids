@@ -11,6 +11,4 @@ class CollisionSystem: public System {
 
     private:
 	bool hasCollision(Entity* entity1, Entity* entity2);
-
-	GroupManager* groupManager;
 };

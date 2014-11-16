@@ -15,14 +15,14 @@ void CollisionSystem::process() {
 	/* 	player, CollisionKind::AsteroidPlayer)); */
 	/* } */
 
-	for (auto& otherAsteroid: asteroids) {
-	    if (asteroid == otherAsteroid) continue;
+	/* for (auto& otherAsteroid: asteroids) { */
+	/*     if (asteroid == otherAsteroid) continue; */
 
-	    if (hasCollision(asteroid, otherAsteroid)) {	
-		eventBus->emit(CollisionEvent(asteroid,
-		    otherAsteroid, CollisionKind::AsteriodAsteroid));
-	    }
-	}
+	/*     if (hasCollision(asteroid, otherAsteroid)) { */	
+	/* 	eventBus->emit(CollisionEvent(asteroid, */
+	/* 	    otherAsteroid, CollisionKind::AsteriodAsteroid)); */
+	/*     } */
+	/* } */
 
 	for (auto& projectile: projectiles) {
 	    if (hasCollision(asteroid, projectile)) {
