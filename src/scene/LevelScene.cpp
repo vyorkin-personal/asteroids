@@ -1,7 +1,7 @@
 #include "scene/LevelScene.hpp"
 
-LevelScene::LevelScene(SceneManager* sceneManager, World* world, Level* level):
-    Scene(sceneManager), world{world}, level{level} {}
+LevelScene::LevelScene(SceneManager* sceneManager, EventBus* eventBus, Level* level):
+    Scene(sceneManager), eventBus{eventBus}, level{level} {}
 
 LevelScene::~LevelScene() {
     delete level;
@@ -28,8 +28,7 @@ void LevelScene::onPause() {
 }
 
 void LevelScene::onRender(const float deltaTime) {
-    world->setDelta(deltaTime);
-    world->process();
+    level->update(deltaTime);
 }
 
 void LevelScene::onResize(const Size2i& size) {
@@ -44,7 +43,7 @@ void LevelScene::setOrtho(const float aspectRatio) {
     const auto volume = getViewVolume(aspectRatio);
 
     glOrtho(volume.leftBottom.x, volume.rightTop.x,
-        volume.leftBottom.y, volume.rightTop.y, -1.0, 1.0);
+            volume.leftBottom.y, volume.rightTop.y, -1.0, 1.0);
 }
 
 Rectanglef LevelScene::getViewVolume(const float aspectRatio) const {
@@ -60,7 +59,7 @@ Rectanglef LevelScene::getViewVolume(const float aspectRatio) const {
 }
 
 void LevelScene::onKeyDown(const int keyCode, const char keyChar) {
-    world->getEventBus()->emit(KeyDownEvent(keyCode, keyChar));
+    eventBus->emit(KeyDownEvent(keyCode, keyChar));
 
     switch (keyChar) {
         case 'r':
@@ -73,5 +72,5 @@ void LevelScene::onKeyDown(const int keyCode, const char keyChar) {
 }
 
 void LevelScene::onKeyUp(const int keyCode, const char keyChar) {
-    world->getEventBus()->emit(KeyUpEvent(keyCode, keyChar));
+    eventBus->emit(KeyUpEvent(keyCode, keyChar));
 }

@@ -3,7 +3,7 @@
 const LevelSettings LevelSettings::initial = LevelSettings();
 
 LevelSettings::LevelSettings():
-	difficulty{LevelDifficulty::Easy}, numAsteroids{22} {}
+	difficulty{LevelDifficulty::Easy}, numAsteroids{10} {}
 
 LevelSettings::LevelSettings(const LevelDifficulty difficulty, const int numAsteroids):
 	difficulty{difficulty}, numAsteroids{numAsteroids} {}

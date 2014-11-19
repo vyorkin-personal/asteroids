@@ -13,9 +13,10 @@ EntityFactory::EntityFactory(World* world, const Rectanglef& worldBounds):
     
     x_distribution = FloatDistribution(worldBounds.leftBottom.x, worldBounds.rightTop.x);
     y_distribution = FloatDistribution(worldBounds.leftBottom.y, worldBounds.rightTop.y);
+
     radian_distribution = FloatDistribution(0.0f, 2.0f * M_PI);
-    velocity_distribution = FloatDistribution(-80.0f, 80.0f);
-    radius_distribution = FloatDistribution(0.8f, 2.4f);
+    velocity_distribution = FloatDistribution(-90.0f, 90.0f);
+    radius_distribution = FloatDistribution(0.8f, 2.6f);
     color_distribution = FloatDistribution(0.1f, 1.0f);
     lifetime_distribution = FloatDistribution(10.0f, 800.0f);
 }
@@ -63,11 +64,12 @@ Entity* EntityFactory::createPlayer() {
     entity->setTag("player");
 
     entity->addComponents({
+        new PlayerState(),
         new Position(),
         new Momentum(Velocity::Zero, Dumping(0.99f, 0.96f)),
         new Geometry(0.4f),
-        new Body(100000.0f, 1.0f),
-        new Cannon(120.0f),
+        new Body(90000.0f, 1.0f),
+        new Cannon(140.0f),
         new PlayerAppearance(
             Vector2f(0.0f, 0.0f),
             Vector2f(0.5f, 1.0f),
@@ -84,7 +86,7 @@ Entity* EntityFactory::createProjectile(Momentum* momentum, Position* position) 
     auto entity = world->createEntity();
     entity->addToGroup("projectiles");
 
-    const float speed = 100.0f;
+    const float speed = 120.0f;
     const float angle = position->angle * M_PI / 180.0f + M_PI / 2.0f;
 
     const auto projectileLinearVelocity = Vector2f(cos(angle) * speed, sin(angle) * speed);

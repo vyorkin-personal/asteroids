@@ -28,7 +28,7 @@ void Game::initialize(int argc, char** argv) {
 
 void Game::start() {
     auto sceneManager = window->getSceneManager();
-    auto levelScene = new LevelScene(sceneManager, world, level);
+    auto levelScene = new LevelScene(sceneManager, world->getEventBus(), level);
 
     sceneManager->add(levelScene);
     sceneManager->setCurrent(levelScene);

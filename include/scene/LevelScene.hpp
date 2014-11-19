@@ -8,11 +8,11 @@
 #include "events/KeyEvent.hpp"
 
 #include "Level.hpp"
-#include "LevelSettings.hpp"
+#include "LevelState.hpp"
 
 class LevelScene: public Scene {
     public:
-        LevelScene(SceneManager* sceneManager, World* world, Level* level);
+        LevelScene(SceneManager* sceneManager, EventBus* eventBus, Level* level);
         ~LevelScene();
 
         virtual void onInitialize() override;
@@ -28,6 +28,6 @@ class LevelScene: public Scene {
         void setOrtho(const float aspectRatio);
         Rectanglef getViewVolume(const float aspectRatio) const;
 
-        World* world;
+        EventBus* eventBus;
         Level* level;
 };

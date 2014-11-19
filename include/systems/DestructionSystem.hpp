@@ -15,6 +15,9 @@ class DestructionSystem: public System {
 	void onCollision(const CollisionEvent& event);
 
     private:
+	void handlePlayerCollision(Entity* player);
+	void handleProjectileCollision(Entity* asteroid, Entity* projectile);
+
 	EntityFactory* entityFactory;
 };
 

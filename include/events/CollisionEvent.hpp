@@ -2,18 +2,14 @@
 
 #include "Base.hpp"
 
-enum CollisionKind {
-    AsteriodAsteroid,
-    AsteroidProjectile,
-    AsteroidPlayer
-};
+enum class CollisionKind { Asteroid, Projectile, Player };
 
 struct CollisionEvent: public Event {
-    CollisionEvent(Entity* entity1, Entity* entity2, const CollisionKind kind):
-        entity1{entity1}, entity2{entity2}, kind{kind} {}
+    CollisionEvent(Entity* asteroid, Entity* collider, const CollisionKind kind):
+        asteroid{asteroid}, collider{collider}, kind{kind} {}
 
-    Entity* entity1;
-    Entity* entity2;
+    Entity* asteroid;
+    Entity* collider;
 
     CollisionKind kind;
 };

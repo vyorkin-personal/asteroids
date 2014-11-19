@@ -1,3 +1,3 @@
 #pragma once
 
-enum SceneState { Playing, Paused };
+enum class SceneState { Playing, Paused };

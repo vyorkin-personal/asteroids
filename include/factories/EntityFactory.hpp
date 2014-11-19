@@ -5,6 +5,7 @@
 #include "common/Velocity.hpp"
 #include "common/Dumping.hpp"
 
+#include "components/PlayerState.hpp"
 #include "components/Geometry.hpp"
 #include "components/Momentum.hpp"
 #include "components/Body.hpp"
