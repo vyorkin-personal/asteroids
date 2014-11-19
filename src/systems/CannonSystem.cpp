@@ -16,7 +16,6 @@ void CannonSystem::processEntity(Entity* entity) {
 	if (cannon->isFiring()) {
 		auto position = entity->getComponent<Position>();
 		auto momentum = entity->getComponent<Momentum>();
-		auto geometry = entity->getComponent<Geometry>();
 
 		entityFactory->createProjectile(momentum, position);
 	}
