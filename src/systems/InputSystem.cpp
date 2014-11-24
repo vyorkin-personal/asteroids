@@ -29,8 +29,8 @@ void InputSystem::processEntity(Entity* entity) {
 
 	if (specialKeys[Keys::Forward])
 		momentum->move(position->angle, dt);
-	else if (specialKeys[Keys::Backward])
-		momentum->move(position->angle, -dt);
+	/* else if (specialKeys[Keys::Backward]) */
+	/* 	momentum->move(position->angle, -dt); */
 
 	if (specialKeys[Keys::Right])
 		momentum->rotate(-dt);

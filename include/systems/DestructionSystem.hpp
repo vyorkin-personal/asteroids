@@ -2,6 +2,7 @@
 
 #include "Base.hpp"
 #include "components/Position.hpp"
+#include "components/appearance/PlayerAppearance.hpp"
 #include "factories/EntityFactory.hpp"
 #include "events/CollisionEvent.hpp"
 #include "events/ExplosionEvent.hpp"

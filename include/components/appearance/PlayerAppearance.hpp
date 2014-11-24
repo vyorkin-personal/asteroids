@@ -8,4 +8,6 @@ struct PlayerAppearance: public Component {
     Vector2f a;
     Vector2f b;
     Vector2f c;
+
+    bool visible;
 };

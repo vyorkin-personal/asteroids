@@ -2,6 +2,7 @@
 
 void PlayerRenderer::render(Entity* entity, const float delta) {
 	auto appearance = entity->getComponent<PlayerAppearance>();
+	if (!appearance->visible) return;
 
 	glBegin(GL_POLYGON);
 	glVertex2f(appearance->a.x, appearance->a.y);

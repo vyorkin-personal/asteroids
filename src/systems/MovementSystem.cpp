@@ -25,14 +25,14 @@ void MovementSystem::handleScreenBounds(Entity* entity,
     if (position->outOfBoundsAction == OutOfBoundsAction::LOOP) {
 
         if (position->vector.x > worldBounds.rightTop.x)
-            position->vector.x = worldBounds.leftBottom.x;
+            position->vector.x -= worldBounds.rightTop.x - worldBounds.leftBottom.x;
         else if (position->vector.x < worldBounds.leftBottom.x)
-            position->vector.x = worldBounds.rightTop.x;
+            position->vector.x += worldBounds.rightTop.x - worldBounds.leftBottom.x;
         
         if (position->vector.y > worldBounds.rightTop.y)
-            position->vector.y = worldBounds.leftBottom.y;
+            position->vector.y -= worldBounds.rightTop.y - worldBounds.leftBottom.y;
         else if (position->vector.y < worldBounds.leftBottom.y)
-            position->vector.y = worldBounds.rightTop.y;
+            position->vector.y += worldBounds.rightTop.y - worldBounds.leftBottom.y;
 
     } else if (position->outOfBoundsAction == OutOfBoundsAction::DESTROY) {
 

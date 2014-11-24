@@ -1,27 +1,32 @@
 #include "Level.hpp"
 
 Level::Level(World* world, const Rectanglef& worldBounds):
-	world{world}, worldBounds{worldBounds} {
+    world{world}, worldBounds{worldBounds} {
 
-	entityFactory = new EntityFactory(world, worldBounds);
-	groupManager = world->getGroupManager();
-	tagManager = world->getTagManager();
+    entityFactory = new EntityFactory(world, worldBounds);
+    groupManager = world->getGroupManager();
+    tagManager = world->getTagManager();
 }
 
 Level::~Level() {
-	delete entityFactory;
+    delete entityFactory;
 }
 
 void Level::start(const LevelSettings& settings) {
-	this->settings = settings;
-	createSystems();
-	createObjects();
-	state = LevelState::Playing;
+    this->settings = settings;
+    createSystems();
+    restart();
 }
 
 void Level::restart() {
-	world->reset();
-	createObjects();
+    world->reset();
+    createObjects();
+    state = LevelState::Playing;
+}
+
+void Level::next() {
+    settings.numAsteroids += 4;
+    restart();
 }
 
 void Level::update(const float deltaTime) {
@@ -29,18 +34,18 @@ void Level::update(const float deltaTime) {
     world->process();
 
     processState();
+
+    if (state == LevelState::Won)
+	next();
+    else if (state == LevelState::Lost)
+	restart();
 }
 
 void Level::processState() {
-    if (!player->getComponent<PlayerState>()->alive) {
+    if (!player->getComponent<PlayerState>()->alive)
 	state = LevelState::Lost;
-	std::cout << "lost" << std::endl;
-    } else if (groupManager->isEmptyGroup("asteroids")) {
+    else if (groupManager->isEmptyGroup("asteroids"))
 	state = LevelState::Won;
-	std::cout << "won" << std::endl;
-    } else {
-	std::cout << "playing" << std::endl;
-    }
 }
 
 void Level::createSystems() {

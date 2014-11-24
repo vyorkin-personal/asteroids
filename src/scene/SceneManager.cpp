@@ -1,8 +1,5 @@
 #include "scene/SceneManager.hpp"
 
-SceneManager::SceneManager(glut::Window* window):
-    window{window}, current{nullptr} {}
-
 SceneManager::~SceneManager() {
     destroyAll();
 }

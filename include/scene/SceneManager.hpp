@@ -6,7 +6,6 @@
 
 class SceneManager {
     public:
-        SceneManager(glut::Window* window);
         ~SceneManager();
 
         Scene* add(Scene* scene);
@@ -18,7 +17,6 @@ class SceneManager {
         }
 
     private:
-        glut::Window* window;
         Scene* current;
         SceneSet scenes;
 };

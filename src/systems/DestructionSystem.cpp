@@ -22,6 +22,7 @@ void DestructionSystem::onCollision(const CollisionEvent& e) {
 }
 
 void DestructionSystem::handlePlayerCollision(Entity* player) {
+	player->getComponent<PlayerAppearance>()->visible = false;
 	player->getComponent<PlayerState>()->alive = false;
 }
 

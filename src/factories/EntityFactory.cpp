@@ -15,7 +15,7 @@ EntityFactory::EntityFactory(World* world, const Rectanglef& worldBounds):
     y_distribution = FloatDistribution(worldBounds.leftBottom.y, worldBounds.rightTop.y);
 
     radian_distribution = FloatDistribution(0.0f, 2.0f * M_PI);
-    velocity_distribution = FloatDistribution(-90.0f, 90.0f);
+    velocity_distribution = FloatDistribution(-100.0f, 100.0f);
     radius_distribution = FloatDistribution(0.8f, 2.6f);
     color_distribution = FloatDistribution(0.1f, 1.0f);
     lifetime_distribution = FloatDistribution(10.0f, 800.0f);

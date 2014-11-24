@@ -2,7 +2,7 @@
 
 namespace glut {
     GameWindow::GameWindow() {
-        sceneManager = new SceneManager(this);
+        sceneManager = new SceneManager();
     }
 
     GameWindow::~GameWindow() {
